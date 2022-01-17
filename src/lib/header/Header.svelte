@@ -1,14 +1,16 @@
 <header>
   <nav>
-    hello
+    Clear grid
   </nav>
 </header>
 
 <style>
   header{
     display: flex;
-    justify-content: space-between;
-    height: 2rem;
-    background-color: blueviolet;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: #0f233e;
+    
   }
 </style>
