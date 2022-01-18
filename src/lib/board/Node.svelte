@@ -13,16 +13,17 @@
     /* cursor: url('../images/wall.png'),pointer; */
   }
   .wall{
-    background: black;
+    background-color: grey;
+    transition: background-color 1s;
   }
   .start{
-    background-image: url(../images/arrow.png);
+    background-image: url(../../images/arrow.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px 22px;
   }
   .target{
-    background-image: url(../images/target.png);
+    background-image: url(../../images/target.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25px 25px;
