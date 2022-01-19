@@ -1,5 +1,6 @@
 <script>
   import { grid } from './board/grid.js';
+  import dijkstra from './board/algoritms/dijkstra.js'
 </script>
 
 <header>
@@ -9,6 +10,9 @@
     </div>
     <div>
       Draw random maze
+    </div>
+    <div on:click={dijkstra}>
+      dijkstra
     </div>
   </nav>
 </header>

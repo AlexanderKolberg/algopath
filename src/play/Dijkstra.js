@@ -1,34 +1,47 @@
-let grid = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 1, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 2, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+class Node {
+	constructor(row, colum) {
+		this.distance = Infinity;
+		this.type = 'Empty';
+		this.isUnvisited = true;
+		this.row = row;
+		this.colum = colum;
+	}
+}
 
-let start = [1, 1];
-let current = start;
-let cols = grid[0].length;
-let rows = grid.length;
+let grid = [...Array(10)].map((_, row) => [...Array(10)].map((_, col) => new Node(row, col)));
 
-let unvisited = [];
-let visited = [];
+grid[1][1].distance = 0;
+grid[5][5].type = 'end';
+
+let unvisited = grid.flat();
 
 while (unvisited.length) {
-	visited.push(current);
+	sortUnvisited();
+	let current = unvisited[0];
+	let neighbors = getNeighbors(current);
+	let distance = current.distance + 1;
+	neighbors.forEach((n) => {
+		n.distance = Math.min(n.distance, distance);
+	});
+	current.isUnvisited = false;
+	if (current.type == 'end') break;
+	unvisited.shift();
 }
 
-function getNeighbours(p) {
-	const n = [];
-	const [x, y] = p;
-	if (x < cols - 1) n.push([x + 1, y]);
-	if (x > 0) n.push([x - 1, y]);
-	if (y < rows - 1) n.push([x, y + 1]);
-	if (y > 0) n.push([x, y - 1]);
-	return n;
+let newMap = grid.map((r) => r.map((n) => (n.distance != Infinity ? n.distance : 'A')));
+console.log(newMap.map((r) => r.join('')).join('\n'));
+
+function getNeighbors(n) {
+	let c = n.colum;
+	let r = n.row;
+	let neighbors = [];
+	if (c - 1 >= 0 && grid[r][c - 1].isUnvisited) neighbors.push(grid[r][c - 1]);
+	if (c + 1 < grid[0].length && grid[r][c + 1].isUnvisited) neighbors.push(grid[r][c + 1]);
+	if (r - 1 >= 0 && grid[r - 1][c].isUnvisited) neighbors.push(grid[r - 1][c]);
+	if (r + 1 < grid.length && grid[r + 1][c].isUnvisited) neighbors.push(grid[r + 1][c]);
+	return neighbors;
 }
 
-let differenceX = [0, 0, 1, -1];
-let differenceY = [-1, 1, 0, 0];
-
-for (let i = 0; i < 4; i++) {}
+function sortUnvisited() {
+	unvisited.sort((a, b) => a.distance - b.distance);
+}

@@ -1,7 +1,7 @@
 <script>
   import { grid } from './grid.js';
-  import Node from '$lib/board/Node.svelte';
-import { onMount } from 'svelte';
+  import Cell from '$lib/board/Cell.svelte';
+  import { onMount } from 'svelte';
   
   let innerHeight;
   let innerWidth;
@@ -10,16 +10,17 @@ import { onMount } from 'svelte';
     let rows = Math.floor((innerHeight-50)/30)
     grid.init(colums, rows)
   })
+
   let mousedown = false;
   function mouseHandler(row, collum, down){
-    let isMouseDown = (mousedown || down)
-    if (!isMouseDown) return
-    let currentValue = $grid[row][collum]
-    if (currentValue === null){
-      $grid[row][collum] = 'wall'
+    if (!down) return
+    let currentValue = $grid[row][collum].type
+    console.log(currentValue)
+    if (currentValue === 'empty'){
+      $grid[row][collum].type = 'wall'
     }
     else if(currentValue === 'wall'){
-      $grid[row][collum] = null
+      $grid[row][collum].type = 'empty'
     }
   }
 </script>
@@ -33,9 +34,9 @@ import { onMount } from 'svelte';
   >
       {#each $grid as row, i}
         <div>
-          {#each row as cell, k}
-            <Node type={cell}
-            on:mouseover={() => (mouseHandler(i, k))}
+          {#each row as n, k}
+            <Cell type={n.type} distance={n.distance} shortesPath={n.isShortestPath}
+            on:mouseover={() => (mouseHandler(i, k, mousedown))}
             on:mousedown={() => (mouseHandler(i, k, true))} />
           {/each}
         </div>
