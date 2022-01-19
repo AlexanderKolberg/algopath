@@ -46,7 +46,7 @@ export default function dijkstra() {
 	function sortUnvisited() {
 		unvisited.sort((a, b) => a.distance - b.distance);
 	}
-	console.log(current);
+
 	while (current !== null) {
 		current.isShortestPath = true;
 		current = current.previousNode;

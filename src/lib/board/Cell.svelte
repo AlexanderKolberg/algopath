@@ -3,9 +3,14 @@
   export let type
   export let distance
   export let shortesPath
+  $: dist = Infinity
+  $: sp = false
+  $: if (distance < Infinity) setTimeout(() => dist = distance, distance * 200)
+  $: if (shortesPath) setTimeout(() => sp = true, (distance * 200) + 5000)
 </script>
 
-<div class={`${type} d${distance} ${shortesPath ? 'shortesPath' : ''}`} on:mouseover on:mousedown></div>
+
+<div class={`${type} d${dist}`} class:sp on:mouseover on:mousedown></div>
 
 <style>
   div{
@@ -73,7 +78,7 @@
   background-position: center;
   background-size: 25px 25px;
 }
-.shortesPath{
+.sp{
     background-color: yellow;
     transition: background-color 2s;
   }
