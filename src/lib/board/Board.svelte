@@ -15,7 +15,6 @@
   function mouseHandler(row, collum, down){
     if (!down) return
     let currentValue = $grid[row][collum].type
-    console.log(currentValue)
     if (currentValue === 'empty'){
       $grid[row][collum].type = 'wall'
     }

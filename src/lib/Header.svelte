@@ -1,6 +1,7 @@
 <script>
   import { grid } from './board/grid.js';
   import dijkstra from './board/algoritms/dijkstra.js'
+  import mazeGen from './board/algoritms/maze/depthFirst.js'
 </script>
 
 <header>
@@ -8,7 +9,7 @@
     <div on:click={grid.reset}>
       Clear grid
     </div>
-    <div>
+    <div on:click={mazeGen}>
       Draw random maze
     </div>
     <div on:click={dijkstra}>
@@ -32,5 +33,6 @@
   }
   div{
     color: white;
+    cursor: pointer;
   }
 </style>

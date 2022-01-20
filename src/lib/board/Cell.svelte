@@ -6,7 +6,9 @@
   $: dist = Infinity
   $: sp = false
   $: if (distance < Infinity) setTimeout(() => dist = distance, distance * 200)
+     else dist = Infinity
   $: if (shortesPath) setTimeout(() => sp = true, (distance * 200) + 5000)
+     else sp = false
 </script>
 
 
