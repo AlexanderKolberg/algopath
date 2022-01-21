@@ -1,20 +1,17 @@
 <script>
   import { grid } from './board/grid.js';
-  import dijkstra from './board/algoritms/dijkstra.js'
-  import mazeGen from './board/algoritms/maze/depthFirst.js'
+  import dijkstra from './board/algoritms/dijkstra.js';
+  import mazeGen from './board/algoritms/maze/depthFirst.js';
+  import Button from './Button.svelte';
+  import ButtonWdrop from './ButtonWdrop.svelte';
+  
 </script>
 
 <header>
   <nav>
-    <div on:click={grid.reset}>
-      Clear grid
-    </div>
-    <div on:click={mazeGen}>
-      Draw random maze
-    </div>
-    <div on:click={dijkstra}>
-      dijkstra
-    </div>
+    <ButtonWdrop on:click={dijkstra}>Solve Maze width Dijkstra</ButtonWdrop>
+    <Button on:click={mazeGen}>Draw maze with DFS</Button>
+    <Button on:click={grid.reset}>Clear grid</Button>
   </nav>
 </header>
 
