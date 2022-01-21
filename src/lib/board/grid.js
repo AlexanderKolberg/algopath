@@ -3,6 +3,8 @@ import Node from './Node.js';
 let gridColumns = 0;
 let gridRows = 0;
 
+let longest = 0;
+
 function ini(columns, rows) {
 	gridColumns = columns;
 	gridRows = rows;
@@ -35,7 +37,9 @@ function createGrid() {
 		init: (columns, rows) => set(ini(columns, rows)),
 		set,
 		reset: () => set(newGrid(gridColumns, gridRows)),
-		allWall: () => set(justWalls(gridColumns, gridRows))
+		allWall: () => set(justWalls(gridColumns, gridRows)),
+		setLong: (l) => (longest = l),
+		getLong: () => longest
 	};
 }
 

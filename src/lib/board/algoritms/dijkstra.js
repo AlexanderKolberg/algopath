@@ -18,7 +18,10 @@ export default function dijkstra() {
 			n.previousNode = current;
 		});
 		current.isUnvisited = false;
-		if (current.type == 'target') break;
+		if (current.type == 'target') {
+			grid.setLong(current.distance);
+			break;
+		}
 	}
 	//let newMap = matrix.map((r) => r.map((n) => (n.distance != Infinity ? n.distance : 'A')));
 	//console.log(newMap.map((r) => r.join('')).join('\n'));

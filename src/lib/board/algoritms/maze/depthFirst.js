@@ -8,33 +8,32 @@ export default function mazeGen() {
 	});
 
 	let visited = [];
-	console.log(matrix);
 	let unvisited = matrix
 		.filter((_, i) => i % 2 == 1)
 		.flat()
 		.filter((_, i) => i % 2 == 1);
-
-	console.log(unvisited);
 	let current = unvisited.shift();
-	let i = 0;
-	while (unvisited.length && i < 1000) {
-		i++;
-		current.type = 'empty';
+
+	let visitedInOrder = [];
+	visited.push(current);
+	while (visited.length) {
+		visitedInOrder.push(current);
 		current.isUnvisited2 = false;
-		let neighbors = getNeighbors(current);
 		unvisited = unvisited.filter((n) => n != current);
+		let [neighbors, walls] = getNeighbors(current);
 		if (neighbors.length) {
 			visited.push(current);
-			let neighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
-			removeWall(current, neighbor);
+			let rng = Math.floor(Math.random() * neighbors.length);
+			let neighbor = neighbors[rng];
+			visitedInOrder.push(walls[rng]);
 			current = neighbor;
 		} else current = visited.pop();
 	}
-	console.log(unvisited.length);
 	function getNeighbors(n) {
 		let c = n.colum;
 		let r = n.row;
 		let neighbors = [];
+		let walls = [];
 		let validNode = (row, colum) => {
 			return (
 				row > 0 &&
@@ -44,17 +43,25 @@ export default function mazeGen() {
 				matrix[row][colum].isUnvisited2
 			);
 		};
-		if (validNode(r, c - 2)) neighbors.push(matrix[r][c - 2]);
-		if (validNode(r, c + 2)) neighbors.push(matrix[r][c + 2]);
-		if (validNode(r - 2, c)) neighbors.push(matrix[r - 2][c]);
-		if (validNode(r + 2, c)) neighbors.push(matrix[r + 2][c]);
-		return neighbors;
+		if (validNode(r, c - 2)) {
+			neighbors.push(matrix[r][c - 2]);
+			walls.push(matrix[r][c - 1]);
+		}
+		if (validNode(r, c + 2)) {
+			neighbors.push(matrix[r][c + 2]);
+			walls.push(matrix[r][c + 1]);
+		}
+		if (validNode(r - 2, c)) {
+			neighbors.push(matrix[r - 2][c]);
+			walls.push(matrix[r - 1][c]);
+		}
+		if (validNode(r + 2, c)) {
+			neighbors.push(matrix[r + 2][c]);
+			walls.push(matrix[r + 1][c]);
+		}
+		return [neighbors, walls];
 	}
-	function removeWall(current, neighbor) {
-		if (current.row > neighbor.row) matrix[current.row - 1][current.colum].type = 'empty';
-		if (current.row < neighbor.row) matrix[current.row + 1][current.colum].type = 'empty';
-		if (current.colum > neighbor.colum) matrix[current.row][current.colum - 1].type = 'empty';
-		if (current.colum < neighbor.colum) matrix[current.row][current.colum + 1].type = 'empty';
-	}
-	grid.set(matrix);
+	visitedInOrder.forEach((n) => (n.type = 'empty'));
+	visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
+	visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
 }

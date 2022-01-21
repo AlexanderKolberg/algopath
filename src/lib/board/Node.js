@@ -8,5 +8,9 @@ export default class Node {
 		this.previousNode = null;
 		this.isShortestPath = false;
 		this.isUnvisited2 = true;
+		this.setStart = () => {
+			this.distance = 0;
+			this.type = 'start';
+		};
 	}
 }
