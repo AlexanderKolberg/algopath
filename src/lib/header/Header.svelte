@@ -5,6 +5,7 @@
   import Button from './Button.svelte';
   import ButtonWdrop from './ButtonWdrop.svelte';
   import recursiveDivision from '$lib/board/algoritms/maze/recursivedivision.js'
+  import Status from './Status.svelte'
 </script>
 
 <header>
@@ -15,6 +16,7 @@
     <Button on:click={recursiveDivision}>Test</Button>
   </nav>
 </header>
+<Status />
 
 
 <style>
