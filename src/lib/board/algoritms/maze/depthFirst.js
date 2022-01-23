@@ -63,12 +63,23 @@ export default function mazeGen() {
 		);
 	}
 
-	visitedInOrder.forEach((n, i) => {
-		setTimeout(() => {
-			n.type = 'digger';
-			grid.forceUpdate();
-		}, i * 11);
-	});
-	//visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
-	//visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
+	const example = async () => {
+		for (const node of visitedInOrder) {
+			await setDigger(node);
+		}
+		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
+		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
+		grid.forceUpdate();
+	};
+
+	const setDigger = (node) => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				node.type = 'digger';
+				grid.forceUpdate();
+				resolve();
+			}, 11);
+		});
+	};
+	example();
 }
