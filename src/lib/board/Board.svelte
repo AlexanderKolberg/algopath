@@ -1,5 +1,5 @@
 <script>
-  import { grid } from './grid.js';
+  import { grid } from './stores.js';
   import Cell from '$lib/board/Cell.svelte';
   import { onMount } from 'svelte';
   
@@ -30,11 +30,12 @@
   on:mousedown={()=> (mousedown = true)} 
   on:mouseup={() => (mousedown = false)}
   on:mouseleave={() => (mousedown = false)}
+  on:dragstart={() => (mousedown = false)}
   >
       {#each $grid as row, i}
         <div>
-          {#each row as n, k}
-            <Cell type={n.type} distance={n.distance} shortesPath={n.isShortestPath}
+          {#each row as node, k}
+            <Cell node={node}
             on:mouseover={() => (mouseHandler(i, k, mousedown))}
             on:mousedown={() => (mouseHandler(i, k, true))} />
           {/each}

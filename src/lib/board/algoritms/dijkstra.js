@@ -1,58 +1,61 @@
-import { grid } from '../grid.js';
+import { grid, unsolvable, longest } from '../stores.js';
+import { onDestroy } from 'svelte';
 
 export default function dijkstra() {
-	let matrix = [];
-	grid.subscribe((m) => {
-		matrix = m;
+	let gridValue;
+
+	const unsubscribe = grid.subscribe((value) => {
+		gridValue = value;
 	});
-	let unvisited = matrix.flat();
+
+	let unvisited = gridValue.flat();
 	let current;
+
 	while (unvisited.length) {
-		sortUnvisited();
+		unvisited.sort((a, b) => a.distance - b.distance);
+		if (unvisited[0].distance == Infinity) {
+			unsolvable.set(true);
+			break;
+		}
 		current = unvisited.shift();
 		if (current.type == 'wall') continue;
 		let neighbors = getNeighbors(current);
 		let distance = current.distance + 1;
-		neighbors.forEach((n) => {
-			n.distance = Math.min(n.distance, distance);
-			n.previousNode = current;
+		neighbors.forEach((node) => {
+			node.distance = Math.min(node.distance, distance);
+			node.previousNode = current;
 		});
 		current.isUnvisited = false;
 		if (current.type == 'target') {
-			grid.setLong(current.distance);
+			longest.set(current.distance);
+			while (current !== null) {
+				current.isShortestPath = true;
+				current = current.previousNode;
+			}
 			break;
 		}
 	}
-	//let newMap = matrix.map((r) => r.map((n) => (n.distance != Infinity ? n.distance : 'A')));
-	//console.log(newMap.map((r) => r.join('')).join('\n'));
+	grid.set(gridValue);
+	onDestroy(unsubscribe);
 
-	function getNeighbors(n) {
-		let c = n.colum;
-		let r = n.row;
+	function getNeighbors(node) {
+		let c = node.colum;
+		let r = node.row;
 		let neighbors = [];
 		let validNode = (row, colum) => {
 			return (
 				row >= 0 &&
-				row < matrix.length &&
+				row < gridValue.length &&
 				colum >= 0 &&
-				colum < matrix[0].length &&
-				matrix[row][colum].isUnvisited &&
-				matrix[row][colum].type != 'wall'
+				colum < gridValue[0].length &&
+				gridValue[row][colum].isUnvisited &&
+				gridValue[row][colum].type != 'wall'
 			);
 		};
-		if (validNode(r, c - 1)) neighbors.push(matrix[r][c - 1]);
-		if (validNode(r, c + 1)) neighbors.push(matrix[r][c + 1]);
-		if (validNode(r - 1, c)) neighbors.push(matrix[r - 1][c]);
-		if (validNode(r + 1, c)) neighbors.push(matrix[r + 1][c]);
+		if (validNode(r, c - 1)) neighbors.push(gridValue[r][c - 1]);
+		if (validNode(r, c + 1)) neighbors.push(gridValue[r][c + 1]);
+		if (validNode(r - 1, c)) neighbors.push(gridValue[r - 1][c]);
+		if (validNode(r + 1, c)) neighbors.push(gridValue[r + 1][c]);
 		return neighbors;
 	}
-	function sortUnvisited() {
-		unvisited.sort((a, b) => a.distance - b.distance);
-	}
-
-	while (current !== null) {
-		current.isShortestPath = true;
-		current = current.previousNode;
-	}
-	grid.set(matrix);
 }

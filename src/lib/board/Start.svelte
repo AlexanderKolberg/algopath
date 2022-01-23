@@ -1,5 +1,5 @@
 <script>
-  
+
 </script>
 
 <img draggable="true" src="/home.png" alt="start">

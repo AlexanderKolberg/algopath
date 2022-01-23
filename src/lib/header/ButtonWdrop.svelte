@@ -37,7 +37,8 @@
   display: none;
   position: absolute;
 	transform: translateX(-100%);
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(175, 174, 174);
+	border-radius: 10px;
 	color: black;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

@@ -1,4 +1,4 @@
-import { grid } from '../../grid.js';
+import { grid } from '../../stores.js';
 
 export default function mazeGen() {
 	grid.allWall();
@@ -7,42 +7,33 @@ export default function mazeGen() {
 		matrix = m;
 	});
 
-	let visited = [];
-	let unvisited = matrix
-		.filter((_, i) => i % 2 == 1)
-		.flat()
-		.filter((_, i) => i % 2 == 1);
-	let current = unvisited.shift();
+	let visitedInOrder = []; //All visited, for animation
 
-	let visitedInOrder = [];
-	visited.push(current);
-	while (visited.length) {
-		visitedInOrder.push(current);
+	let visited = [];
+	let current = matrix[1][1];
+	visitedInOrder.push(current);
+
+	do {
 		current.isUnvisited2 = false;
-		unvisited = unvisited.filter((n) => n != current);
 		let [neighbors, walls] = getNeighbors(current);
 		if (neighbors.length) {
 			visited.push(current);
 			let rng = Math.floor(Math.random() * neighbors.length);
 			let neighbor = neighbors[rng];
 			visitedInOrder.push(walls[rng]);
+			visitedInOrder.push(neighbor);
 			current = neighbor;
-		} else current = visited.pop();
-	}
+		} else {
+			current = visited.pop();
+			visitedInOrder.push(current);
+		}
+	} while (visited.length);
+
 	function getNeighbors(n) {
 		let c = n.colum;
 		let r = n.row;
 		let neighbors = [];
 		let walls = [];
-		let validNode = (row, colum) => {
-			return (
-				row > 0 &&
-				row < matrix.length - 1 &&
-				colum > 0 &&
-				colum < matrix[0].length - 1 &&
-				matrix[row][colum].isUnvisited2
-			);
-		};
 		if (validNode(r, c - 2)) {
 			neighbors.push(matrix[r][c - 2]);
 			walls.push(matrix[r][c - 1]);
@@ -61,7 +52,23 @@ export default function mazeGen() {
 		}
 		return [neighbors, walls];
 	}
-	visitedInOrder.forEach((n) => (n.type = 'empty'));
-	visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
-	visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
+
+	function validNode(row, colum) {
+		return (
+			row > 0 &&
+			row < matrix.length - 1 &&
+			colum > 0 &&
+			colum < matrix[0].length - 1 &&
+			matrix[row][colum].isUnvisited2
+		);
+	}
+
+	visitedInOrder.forEach((n, i) => {
+		setTimeout(() => {
+			n.type = 'digger';
+			grid.forceUpdate();
+		}, i * 11);
+	});
+	//visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
+	//visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
 }

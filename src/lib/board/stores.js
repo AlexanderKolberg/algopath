@@ -3,8 +3,6 @@ import Node from './Node.js';
 let gridColumns = 0;
 let gridRows = 0;
 
-let longest = 0;
-
 function ini(columns, rows) {
 	gridColumns = columns;
 	gridRows = rows;
@@ -31,16 +29,22 @@ function justWalls(columns, rows) {
 }
 
 function createGrid() {
-	const { subscribe, set } = writable([]);
+	const { subscribe, set, update } = writable([]);
 	return {
 		subscribe,
 		init: (columns, rows) => set(ini(columns, rows)),
 		set,
 		reset: () => set(newGrid(gridColumns, gridRows)),
 		allWall: () => set(justWalls(gridColumns, gridRows)),
-		setLong: (l) => (longest = l),
-		getLong: () => longest
+		forceUpdate: () => update((n) => n)
 	};
 }
 
+export const reset = () => {
+	grid.reset();
+	unsolvable.set(false);
+};
+
 export const grid = createGrid();
+export const unsolvable = writable(false);
+export const longest = writable(0);
