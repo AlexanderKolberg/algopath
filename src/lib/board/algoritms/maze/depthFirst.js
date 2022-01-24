@@ -1,6 +1,6 @@
 import { grid } from '../../stores.js';
 
-export default function mazeGen() {
+export default function depthFirst() {
 	grid.allWall();
 	let matrix = [];
 	grid.subscribe((m) => {

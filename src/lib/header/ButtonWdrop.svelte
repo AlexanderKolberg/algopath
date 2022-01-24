@@ -1,3 +1,16 @@
+<script>
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	
+	export let dropdownList
+
+	function changeAlgoritm(algoritm) {
+		dispatch('algoritm', {
+			text: algoritm
+		});
+	}
+</script>
+
 <div class="outline">
 	<div on:click class="button">
 		<slot></slot>
@@ -5,9 +18,11 @@
 	<div class="dropdown">
 		<svg width="20" height="20" fill="white"><path d="M12,16a2.5,2.5,0,0,1-1.768-.731L4.939,9.975,7.061,7.854,12,12.793l4.939-4.939,2.122,2.121-5.293,5.293A2.5,2.5,0,0,1,12,16Z"/></svg>
 		<div class="dropdown-content">
-			<p>Dijikstra</p>
-			<p>A*</p>
-			<p>A*</p>
+			<ul>
+				{#each dropdownList as item}
+					<li on:click={() => changeAlgoritm(item)}>{item}</li>
+				{/each}
+			</ul>
 		</div>
 	</div>
 </div>
