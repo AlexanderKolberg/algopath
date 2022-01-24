@@ -26,6 +26,20 @@ function justWalls(columns, rows) {
 	);
 	return grid;
 }
+function setClearPath(grid) {
+	grid = grid.map((r) =>
+		r.map((n) => {
+			if (!['start', 'target', 'wall'].includes(n.type)) {
+				n.type = 'empty';
+			}
+			n.ini();
+			if (n.type == 'start') n.setStart();
+			if (n.type == 'target') n.setEnd();
+			return n;
+		})
+	);
+	return grid;
+}
 
 function createGrid() {
 	const { subscribe, set, update } = writable([]);
@@ -35,7 +49,8 @@ function createGrid() {
 		set,
 		reset: () => set(newGrid(gridColumns, gridRows)),
 		allWall: () => set(justWalls(gridColumns, gridRows)),
-		forceUpdate: () => update((n) => n)
+		forceUpdate: () => update((n) => n),
+		clearPath: () => update((n) => setClearPath(n))
 	};
 }
 

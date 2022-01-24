@@ -4,10 +4,11 @@ import { onDestroy } from 'svelte';
 export default function dijkstra() {
 	let gridValue;
 
+	grid.clearPath();
+
 	const unsubscribe = grid.subscribe((value) => {
 		gridValue = value;
 	});
-
 	let unvisited = gridValue.flat();
 	let current;
 
