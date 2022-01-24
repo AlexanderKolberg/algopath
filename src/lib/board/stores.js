@@ -15,9 +15,8 @@ function newGrid(columns, rows) {
 	);
 	let centerX = Math.floor(grid.length / 2);
 	let centerY = Math.floor(grid[0].length / 2);
-	grid[centerX - 5][centerY].type = 'start';
-	grid[centerX - 5][centerY].distance = 0;
-	grid[centerX + 5][centerY].type = 'target';
+	grid[centerX - 5][centerY].setStart();
+	grid[centerX + 5][centerY].setEnd();
 	return grid;
 }
 
@@ -48,3 +47,5 @@ export const reset = () => {
 export const grid = createGrid();
 export const unsolvable = writable(false);
 export const longest = writable(0);
+export const start = writable({ row: undefined, colum: undefined });
+export const end = writable({ row: undefined, colum: undefined });

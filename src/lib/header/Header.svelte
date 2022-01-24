@@ -4,9 +4,11 @@
   import mazeGen from '$lib/board/algoritms/maze/depthFirst.js';
   import Button from './Button.svelte';
   import ButtonWdrop from './ButtonWdrop.svelte';
-  import recursiveDivision from '$lib/board/algoritms/maze/recursivedivision.js'
-  import Status from './Status.svelte'
+  import recursiveDivision from '$lib/board/algoritms/maze/recursivedivision.js';
+  import Status from './Status.svelte';
   import randomMaze from '$lib/board/algoritms/maze/randomMaze.js';
+  import astar from '$lib/board/algoritms/astar.js';
+  
   
 </script>
 
@@ -17,6 +19,7 @@
     <Button on:click={reset}>Clear</Button>
     <Button on:click={recursiveDivision}>Test</Button>
     <Button on:click={randomMaze}>Random</Button>
+    <Button on:click={astar}>A*</Button>
   </nav>
 </header>
 <Status />

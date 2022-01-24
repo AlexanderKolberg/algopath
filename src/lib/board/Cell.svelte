@@ -10,7 +10,6 @@
   else dist = Infinity
   $: if (node.isShortestPath) {
     setTimeout(() => sp = true, (node.distance * 200) + $longest * 200)
-    console.log($longest)
   }
      else sp = false
   $: if (node.type == 'digger') {
