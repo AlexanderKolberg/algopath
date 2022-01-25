@@ -67,8 +67,8 @@ export default function depthFirst() {
 		for (const node of visitedInOrder) {
 			await setDigger(node);
 		}
-		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setStart();
-		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].type = 'target';
+		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('start');
+		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('target');
 		grid.forceUpdate();
 	};
 

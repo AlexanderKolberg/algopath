@@ -1,4 +1,6 @@
 <script>
+	import Bus from '$lib/icons/Bus.svelte';
+
 	let currentDroppable = null;
 	function handleMouseDown(event) {
 		event.preventDefault();
@@ -50,11 +52,4 @@
 	}
 </script>
 
-<img on:mousedown={handleMouseDown} on:dragstart={() => false} src="/home.png" alt="start" />
-
-<style>
-	img {
-		width: 27px;
-		height: 27px;
-	}
-</style>
+<Bus on:mousedown={handleMouseDown} on:dragstart={() => false} />

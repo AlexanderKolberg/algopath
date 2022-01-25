@@ -4,6 +4,7 @@
 	import Start from '$lib/board/Start.svelte';
 	import Cat from '$lib/icons/Cat.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
+	import Target from '$lib/icons/Target.svelte';
 
 	export let node;
 	$: dist = Infinity;
@@ -26,6 +27,8 @@
 		<Cat width="20px" height="20px" fill="black" />
 	{:else if node.type == 'logs'}
 		<Logs width="20px" height="20px" fill="black" />
+	{:else if node.type == 'target'}
+		<Target />
 	{/if}
 </div>
 
@@ -55,13 +58,6 @@
 	.checked {
 		background: rgb(57, 99, 57);
 		/*animation: color-me-in .5s; */
-	}
-
-	.target {
-		background-image: url(../../images/target.png);
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: 25px 25px;
 	}
 	.sp {
 		background-color: rgb(162, 231, 162);
