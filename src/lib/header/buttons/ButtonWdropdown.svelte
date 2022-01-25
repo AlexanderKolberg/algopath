@@ -42,7 +42,14 @@
 		>
 			<ul>
 				{#each dropdownList as item}
-					<li on:click={() => changeAlgoritm(item)}>{item}</li>
+					<li
+						on:click={() => {
+							show = !show;
+							changeAlgoritm(item);
+						}}
+					>
+						{item}
+					</li>
 				{/each}
 			</ul>
 		</div>
