@@ -15,8 +15,8 @@ function newGrid(columns, rows) {
 	);
 	let centerX = Math.floor(grid.length / 2);
 	let centerY = Math.floor(grid[0].length / 2);
-	grid[centerX - 5][centerY].setStart();
-	grid[centerX + 5][centerY].setEnd();
+	grid[centerX - 5][centerY].setType('start');
+	grid[centerX + 5][centerY].setType('target');
 	return grid;
 }
 
@@ -29,12 +29,10 @@ function justWalls(columns, rows) {
 function setClearPath(grid) {
 	grid = grid.map((r) =>
 		r.map((n) => {
-			if (!['start', 'target', 'wall'].includes(n.type)) {
+			if (!['start', 'target', 'wall', 'cat', 'log'].includes(n.type)) {
 				n.type = 'empty';
 			}
 			n.ini();
-			if (n.type == 'start') n.setStart();
-			if (n.type == 'target') n.setEnd();
 			return n;
 		})
 	);

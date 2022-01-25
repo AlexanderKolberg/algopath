@@ -21,10 +21,10 @@ export default function dijkstra() {
 		current = unvisited.shift();
 		if (current.type == 'wall') continue;
 		let neighbors = getNeighbors(current);
-		let distance = current.distance + 1;
-		neighbors.forEach((node) => {
-			node.distance = Math.min(node.distance, distance);
-			node.previousNode = current;
+		neighbors.forEach((neighbor) => {
+			let distance = current.distance + neighbor.obstacle;
+			neighbor.distance = Math.min(neighbor.distance, distance);
+			neighbor.previousNode = current;
 		});
 		current.isUnvisited = false;
 		if (current.type == 'target') {

@@ -45,7 +45,7 @@ export default function astar() {
 		let neighbors = getNeighbors(current);
 		for (let neighbor of neighbors) {
 			if (!closedSet.includes(neighbor)) {
-				let tempG = current.distance + 1;
+				let tempG = current.distance + neighbor.obstacle;
 				if (openSet.includes(neighbor)) {
 					if (tempG < neighbor.distance) {
 						neighbor.distance = tempG;

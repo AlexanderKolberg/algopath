@@ -2,6 +2,7 @@
 	import { activeDrawer, grid } from './stores.js';
 	import Cell from '$lib/board/Cell.svelte';
 	import { onMount } from 'svelte';
+	import { empty } from 'svelte/internal';
 
 	let innerHeight;
 	let innerWidth;
@@ -15,11 +16,12 @@
 	function mouseHandler(row, collum, down) {
 		if (!down) return;
 		let currentValue = $grid[row][collum].type;
-		console.log($activeDrawer);
 		if (currentValue == 'empty') {
 			$grid[row][collum].type = $activeDrawer;
+			$grid[row][collum].setType($activeDrawer);
 		} else if (!['start', 'target'].includes($activeDrawer)) {
 			$grid[row][collum].type = 'empty';
+			$grid[row][collum].setType('empty');
 		}
 	}
 </script>
