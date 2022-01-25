@@ -2,6 +2,8 @@
 <script>
 	import { longest } from './stores.js';
 	import Start from '$lib/board/Start.svelte';
+	import Cat from '$lib/icons/Cat.svelte';
+	import Logs from '$lib/icons/Logs.svelte';
 
 	export let node;
 	$: dist = Infinity;
@@ -20,6 +22,10 @@
 <div class={`${node.type} ${dist}`} class:sp on:mouseover on:mousedown>
 	{#if node.type == 'start'}
 		<Start />
+	{:else if node.type == 'cat'}
+		<Cat width="20px" height="20px" fill="black" />
+	{:else if node.type == 'logs'}
+		<Logs width="20px" height="20px" fill="black" />
 	{/if}
 </div>
 

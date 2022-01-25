@@ -1,3 +1,9 @@
+<script>
+	export let width = '20px';
+	export let height = '20px';
+	export let fill = 'white';
+</script>
+
 <svg
 	version="1.1"
 	id="Layer_1"
@@ -8,9 +14,9 @@
 	viewBox="0 0 512 512"
 	style="enable-background:new 0 0 512 512;"
 	xml:space="preserve"
-	width="20"
-	height="20"
-	fill="white"
+	{width}
+	{height}
+	{fill}
 >
 	<g>
 		<g>

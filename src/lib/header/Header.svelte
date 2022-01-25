@@ -15,9 +15,9 @@
 		<SolveButton />
 		<MazeButton />
 		<Button on:click={reset}>Clear</Button>
-		<RoundButton on:click={activeDrawer.set('wall')}><Wall /></RoundButton>
-		<RoundButton on:click={activeDrawer.set('cat')}><Cat /></RoundButton>
-		<RoundButton on:click={activeDrawer.set('logs')}><Logs /></RoundButton>
+		<RoundButton on:click={() => ($activeDrawer = 'wall')}><Wall /></RoundButton>
+		<RoundButton on:click={() => ($activeDrawer = 'cat')}><Cat /></RoundButton>
+		<RoundButton on:click={() => ($activeDrawer = 'logs')}><Logs /></RoundButton>
 		<label>
 			Animation Speed
 			<input type="range" bind:value={$animationSpeed} max={2000} step={100} />
