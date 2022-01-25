@@ -64,3 +64,5 @@ export const unsolvable = writable(false);
 export const longest = writable(0);
 export const start = writable({ row: undefined, colum: undefined });
 export const end = writable({ row: undefined, colum: undefined });
+export const activeDrawer = writable('wall');
+export const animationSpeed = writable('15');

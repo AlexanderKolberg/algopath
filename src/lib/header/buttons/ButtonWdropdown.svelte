@@ -1,7 +1,7 @@
 <script>
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { scale } from 'svelte/transition';
-	import Arrow from './icons/Arrow.svelte';
+	import Arrow from '$lib/icons/Arrow.svelte';
 
 	export let dropdownList;
 

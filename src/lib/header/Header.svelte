@@ -1,13 +1,13 @@
 <script>
-	import { reset } from '$lib/board/stores.js';
+	import { activeDrawer, animationSpeed, reset } from '$lib/board/stores.js';
 	import Button from './buttons/Button.svelte';
 	import Status from './Status.svelte';
 	import SolveButton from './buttons/SolveButton.svelte';
 	import MazeButton from './buttons/MazeButton.svelte';
 	import RoundButton from './buttons/RoundButton.svelte';
-	import Cat from './buttons/icons/Cat.svelte';
-	import Wall from './buttons/icons/Wall.svelte';
-	import Logs from './buttons/icons/Logs.svelte';
+	import Cat from '$lib/icons/Cat.svelte';
+	import Wall from '$lib/icons/Wall.svelte';
+	import Logs from '$lib/icons/Logs.svelte';
 </script>
 
 <header>
@@ -15,9 +15,13 @@
 		<SolveButton />
 		<MazeButton />
 		<Button on:click={reset}>Clear</Button>
-		<RoundButton><Wall /></RoundButton>
-		<RoundButton><Cat /></RoundButton>
-		<RoundButton><Logs /></RoundButton>
+		<RoundButton on:click={activeDrawer.set('wall')}><Wall /></RoundButton>
+		<RoundButton on:click={activeDrawer.set('cat')}><Cat /></RoundButton>
+		<RoundButton on:click={activeDrawer.set('logs')}><Logs /></RoundButton>
+		<label>
+			Animation Speed
+			<input type="range" bind:value={$animationSpeed} max={2000} step={100} />
+		</label>
 	</nav>
 </header>
 <Status />
