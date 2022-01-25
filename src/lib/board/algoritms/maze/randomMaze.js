@@ -8,7 +8,7 @@ export default function randomMaze() {
 
 	matrix.forEach((r) =>
 		r.forEach((n) => {
-			if (Math.random() > 0.7) n.type = 'wall';
+			if (Math.random() > 0.7 && !['start', 'target'].includes(n.type)) n.type = 'wall';
 		})
 	);
 	grid.forceUpdate();
