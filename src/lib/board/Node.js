@@ -21,7 +21,6 @@ export default class Node {
 		if (type == 'cat') this.obstacle = 3;
 	}
 	ini() {
-		this.g = this.type == 'start' ? 0 : Infinity;
 		this.h = Infinity;
 		this.f = Infinity;
 		this.distance = this.type == 'start' ? 0 : Infinity;

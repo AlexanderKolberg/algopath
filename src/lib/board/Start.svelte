@@ -52,4 +52,6 @@
 	}
 </script>
 
-<Bus on:mousedown={handleMouseDown} on:dragstart={() => false} />
+<div on:mousedown={handleMouseDown} on:dragstart={() => false}>
+	<Bus />
+</div>

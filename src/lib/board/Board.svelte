@@ -2,7 +2,6 @@
 	import { activeDrawer, grid } from './stores.js';
 	import Cell from '$lib/board/Cell.svelte';
 	import { onMount } from 'svelte';
-	import { empty } from 'svelte/internal';
 
 	let innerHeight;
 	let innerWidth;
@@ -19,7 +18,7 @@
 		if (currentValue == 'empty') {
 			$grid[row][collum].type = $activeDrawer;
 			$grid[row][collum].setType($activeDrawer);
-		} else if (!['start', 'target'].includes($activeDrawer)) {
+		} else if (!['start', 'target'].includes(currentValue)) {
 			$grid[row][collum].type = 'empty';
 			$grid[row][collum].setType('empty');
 		}
