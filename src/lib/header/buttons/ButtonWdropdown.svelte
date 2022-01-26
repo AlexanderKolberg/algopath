@@ -71,6 +71,8 @@
 	button {
 		background-color: var(--button-bg-color);
 		color: var(--button-fg-color);
+		width: 100%;
+		text-align: start;
 		border: none;
 		cursor: pointer;
 	}
