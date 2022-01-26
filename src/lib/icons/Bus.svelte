@@ -8,6 +8,7 @@
 	viewBox="0 0 512 512"
 	style="enable-background:new 0 0 512 512;"
 	xml:space="preserve"
+	pointer-events="none"
 >
 	<path
 		style="fill:#D1D3D4;"

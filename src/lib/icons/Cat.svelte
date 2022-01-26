@@ -17,6 +17,7 @@
 	{width}
 	{height}
 	{fill}
+	pointer-events="none"
 >
 	<g>
 		<g>
