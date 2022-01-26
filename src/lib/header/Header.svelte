@@ -11,31 +11,55 @@
 </script>
 
 <header>
-	<nav>
+	<div>
 		<SolveButton />
 		<MazeButton />
 		<Button on:click={reset}>Clear</Button>
-		<RoundButton on:click={() => ($activeDrawer = 'wall')}><Wall /></RoundButton>
-		<RoundButton on:click={() => ($activeDrawer = 'cat')}><Cat /></RoundButton>
-		<RoundButton on:click={() => ($activeDrawer = 'logs')}><Logs /></RoundButton>
+	</div>
+	<div>
+		<RoundButton on:click={() => ($activeDrawer = 'wall')}
+			><Wall
+				fill="var({$activeDrawer == 'wall' ? '--button-selected' : '--button-fg-color'})"
+			/></RoundButton
+		>
+		<RoundButton on:click={() => ($activeDrawer = 'cat')}
+			><Cat
+				fill="var({$activeDrawer == 'cat' ? '--button-selected' : '--button-fg-color'})"
+			/></RoundButton
+		>
+		<RoundButton on:click={() => ($activeDrawer = 'logs')}
+			><Logs
+				fill="var({$activeDrawer == 'logs' ? '--button-selected' : '--button-fg-color'})"
+			/></RoundButton
+		>
 		<label>
 			Animation Speed
 			<input type="range" bind:value={$animationSpeed} min={1} max={50} />
 		</label>
-	</nav>
+	</div>
 </header>
 <Status />
 
 <style>
-	nav {
+	div {
 		display: flex;
+		align-items: center;
 		gap: 10px;
 	}
 	header {
 		display: flex;
-		justify-content: center;
+		justify-content: space-around;
 		align-items: center;
 		height: 50px;
-		background-color: #727478;
+		background-color: var(--bg-color);
+		color: var(--button-fg-color);
+	}
+	input {
+		accent-color: var(--button-bg-color);
+	}
+	label {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

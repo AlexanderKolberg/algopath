@@ -13,6 +13,9 @@
 	}
 </script>
 
-<ButtonWdrop dropdownList={algoList} on:click={clickHandler} on:algoritm={changeAlgo}
-	>Solve with {activeAlgo}</ButtonWdrop
+<ButtonWdrop
+	style="width:170px"
+	dropdownList={algoList}
+	on:click={clickHandler}
+	on:algoritm={changeAlgo}>Solve with {activeAlgo}</ButtonWdrop
 >

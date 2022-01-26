@@ -16,6 +16,9 @@
 	}
 </script>
 
-<ButtonWdrop dropdownList={algoList} on:click={clickHandler} on:algoritm={changeAlgo}
-	>{activeAlgo} Maze</ButtonWdrop
+<ButtonWdrop
+	style="width:200px"
+	dropdownList={algoList}
+	on:click={clickHandler}
+	on:algoritm={changeAlgo}>{activeAlgo} Maze</ButtonWdrop
 >

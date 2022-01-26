@@ -4,14 +4,15 @@
 	import Arrow from '$lib/icons/Arrow.svelte';
 
 	export let dropdownList;
+	let style = $$props.style;
 
 	const dispatch = createEventDispatcher();
 	let show = false;
-	let menu = null;
+	let dropdown = null;
 
 	onMount(() => {
 		const handleOutsideClick = (event) => {
-			if (show && !menu.contains(event.target)) {
+			if (show && !dropdown.contains(event.target)) {
 				show = false;
 			}
 		};
@@ -29,11 +30,13 @@
 	}
 </script>
 
-<div class="outline" bind:this={menu}>
-	<div on:click class="button">
+<div class="split-button" {style} bind:this={dropdown}>
+	<button on:click>
 		<slot />
-	</div>
-	<div class="dropdown" on:click={() => (show = !show)}><Arrow /></div>
+	</button>
+	<span class="dropdown-button" on:click={() => (show = !show)}>
+		<Arrow fill="var(--button-fg-color)" />
+	</span>
 	{#if show}
 		<div
 			class="dropdown-content"
@@ -57,40 +60,47 @@
 </div>
 
 <style>
-	.outline {
-		color: #fff;
-		background-color: #333;
-		border-radius: 5px;
+	.split-button {
+		background-color: var(--button-bg-color);
+		cursor: pointer;
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		height: var(--button-height);
+	}
+	button {
+		background-color: var(--button-bg-color);
+		color: var(--button-fg-color);
 		border: none;
 		cursor: pointer;
+	}
+	.dropdown-button {
 		display: flex;
 		align-items: center;
-		position: relative;
+		justify-content: end;
+		padding-left: 8px;
+		padding-right: 8px;
+		border-left: 1px solid rgba(100, 100, 100, 0.5);
 	}
-	.button {
-		padding: 8px;
-	}
-	.dropdown {
-		padding: 8px;
-		border-left: white solid 1px;
-		margin-left: 3px;
-	}
-
 	.dropdown-content {
+		transform: translateY(var(--button-height));
 		position: absolute;
-		transform: translateY(57%);
-		background-color: rgb(175, 174, 174);
-		border-radius: 10px;
+		background-color: white;
 		color: black;
-		min-width: 160px;
-		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-		padding: 12px 16px;
+		width: inherit;
 		z-index: 1;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	}
+	ul {
+		padding: 0;
+		width: inherit;
 	}
 	li {
 		list-style-type: none;
+		padding: 8px;
+		padding-left: 30px;
 	}
 	li:hover {
-		background-color: #335;
+		background-color: rgb(138, 138, 138);
 	}
 </style>

@@ -1,12 +1,11 @@
-<button on:click><slot></slot></button>
+<button on:click><slot /></button>
 
 <style>
-  button {
-		color: #fff;
-		background-color: #333;
-		border-radius: 5px;
-		padding: 8px;
+	button {
+		color: var(--button-fg-color);
+		background-color: var(--button-bg-color);
+		height: var(--button-height);
 		border: none;
-    cursor: pointer;
+		cursor: pointer;
 	}
 </style>

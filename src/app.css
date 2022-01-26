@@ -13,3 +13,11 @@ body,
 body {
 	position: relative;
 }
+
+html {
+	--bg-color: #395e66;
+	--button-bg-color: #bc3908;
+	--button-fg-color: white;
+	--button-height: 40px;
+	--button-selected: green;
+}
