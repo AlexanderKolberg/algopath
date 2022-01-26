@@ -1,6 +1,6 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <script>
-	import { longest } from './stores.js';
+	import { longest, animationSpeed } from './stores.js';
 	import Start from '$lib/board/Start.svelte';
 	import Cat from '$lib/icons/Cat.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
@@ -16,7 +16,7 @@
 		setTimeout(() => (sp = true), node.distance * 200 + $longest * 200);
 	} else sp = false;
 	$: if (node.type == 'digger') {
-		setTimeout(() => (node.type = 'empty'), 15);
+		setTimeout(() => (node.type = 'empty'), animationSpeed);
 	}
 </script>
 

@@ -20,7 +20,7 @@
 		<RoundButton on:click={() => ($activeDrawer = 'logs')}><Logs /></RoundButton>
 		<label>
 			Animation Speed
-			<input type="range" bind:value={$animationSpeed} max={2000} step={100} />
+			<input type="range" bind:value={$animationSpeed} min={1} max={50} />
 		</label>
 	</nav>
 </header>

@@ -1,4 +1,4 @@
-import { grid } from '../../stores.js';
+import { animationSpeed, grid } from '../../stores.js';
 
 export default function depthFirst() {
 	grid.allWall();
@@ -62,24 +62,25 @@ export default function depthFirst() {
 			matrix[row][colum].isUnvisited2
 		);
 	}
+	animationSpeed.subscribe((speed) => {
+		const example = async () => {
+			for (const node of visitedInOrder) {
+				await setDigger(node);
+			}
+			visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('start');
+			visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('target');
+			grid.forceUpdate();
+		};
 
-	const example = async () => {
-		for (const node of visitedInOrder) {
-			await setDigger(node);
-		}
-		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('start');
-		visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('target');
-		grid.forceUpdate();
-	};
-
-	const setDigger = (node) => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				node.type = 'digger';
-				grid.forceUpdate();
-				resolve();
-			}, 11);
-		});
-	};
-	example();
+		const setDigger = (node) => {
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					node.type = 'digger';
+					grid.forceUpdate();
+					resolve();
+				}, speed);
+			});
+		};
+		example();
+	});
 }
