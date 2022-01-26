@@ -1,57 +1,78 @@
+import { get } from 'svelte/store';
 import { grid } from '../../stores.js';
 
 export default function recursiveDivision() {
-	let matrix = [];
-	grid.subscribe((m) => {
-		matrix = m;
-	});
+	let matrix = get(grid);
 	let nodesInOrder = [];
-	let columns = matrix[0].length;
-	let rows = matrix.length;
-	if (columns % 2) columns--;
-	if (rows % 2) rows--;
-	//top left-right
-	for (let c = 0; c < columns; c++) nodesInOrder.push(matrix[0][c]);
-	//right top-down
-	for (let r = 0; r < rows; r++) nodesInOrder.push(matrix[r][columns]);
-	//button left-right
-	for (let c = columns - 1; c >= 0; c--) nodesInOrder.push(matrix[rows - 1][c]);
-	//left button-top
-	for (let r = rows - 1; r >= 0; r--) nodesInOrder.push(matrix[r][0]);
+	let columns = matrix.length;
+	let rows = matrix[0].length;
 
-	function rdm(colStart, colEnd, rowStart, rowEnd) {
-		if (Math.abs(colStart - colEnd) <= 2 || Math.abs(rowStart - rowEnd) <= 2) return;
-		let cols = colEnd - colStart;
-		let rows = rowEnd - rowStart;
-		let divCols = true;
-		if (rows > cols) divCols = false;
-		else if (rows == cols) divCols = Math.random() < 0.5;
-		let div = divCols ? randomBetween(colStart, colEnd) : randomBetween(rowStart, rowEnd);
-		let open = divCols ? randomBetween(rowStart, rowEnd) : randomBetween(colStart, colEnd);
-		if (divCols) {
-			for (let r = rowStart; r <= rowEnd; r++) {
-				if (r != open) nodesInOrder.push(matrix[div][r]);
+	if (!(columns % 2)) columns--;
+	if (!(rows % 2)) rows--;
+	(function addOuterWalls() {
+		for (let r = 0; r < rows; r++) nodesInOrder.push(matrix[0][r]);
+		for (let c = 0; c < columns; c++) nodesInOrder.push(matrix[c][rows - 1]);
+		for (let r = rows - 1; r >= 0; r--) nodesInOrder.push(matrix[columns - 1][r]);
+		for (let c = columns - 1; c >= 0; c--) nodesInOrder.push(matrix[c][0]);
+	})();
+	division(1, columns - 1, 1, rows - 1);
+	function division(columnStart, columnEnd, rowStart, rowEnd) {
+		let columns = Math.abs(columnStart - columnEnd);
+		let rows = Math.abs(rowStart - rowEnd);
+		let divideColumns = getDivideColumns(columns, rows);
+		if ((divideColumns && rows < 3) || (!divideColumns && columns < 3)) return;
+		let wall = divideColumns
+			? randomEvenBetween(columnStart, columnEnd)
+			: randomEvenBetween(rowStart, rowEnd);
+		let open = divideColumns
+			? randomOddBetween(rowStart, rowEnd)
+			: randomOddBetween(columnStart, columnEnd);
+		if (divideColumns) {
+			for (let r = rowStart; r < rowEnd; r++) {
+				if (r != open) nodesInOrder.push(matrix[wall][r]);
 			}
+			division(wall, columnEnd, rowStart, rowEnd);
+			division(columnStart, wall, rowStart, rowEnd);
 		} else {
-			for (let c = colStart; c < colEnd; c++)
-				if (c != open) {
-					nodesInOrder.push(matrix[c][div]);
-				}
+			for (let c = columnStart; c < columnEnd; c++) {
+				if (c != open) nodesInOrder.push(matrix[c][wall]);
+			}
+			division(columnStart, columnEnd, rowStart, wall);
+			division(columnStart, columnEnd, wall, rowEnd);
 		}
-		if (divCols) return rdm(1, div, rowStart, rowEnd);
-		else return rdm(1, colEnd, rowStart, div);
 	}
+	const example = async () => {
+		for (const node of nodesInOrder) {
+			await setDigger(node);
+		}
+		grid.forceUpdate();
+	};
 
-	rdm(1, rows, 1, columns);
+	const setDigger = (node) => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				node.type = 'wall';
+				grid.forceUpdate();
+				resolve();
+			}, 30);
+		});
+	};
+	example();
+}
 
-	function randomBetween(start, end) {
-		let random = Math.floor(Math.random() * (start - end + 1)) + end;
-		if (random % 2) return randomBetween(start, end);
-		return random;
-	}
+function getDivideColumns(columns, rows) {
+	if (rows > columns) return false;
+	else if (rows < columns) return true;
+	else if (rows == columns) return Math.random() < 0.5;
+}
 
-	nodesInOrder.forEach((n) => {
-		n.type = 'wall';
-	});
-	grid.forceUpdate();
+function randomOddBetween(start, end) {
+	let random = Math.floor(Math.random() * (start - end + 1)) + end;
+	if (!(random % 2)) return randomOddBetween(start, end);
+	return random;
+}
+function randomEvenBetween(start, end) {
+	let random = Math.floor(Math.random() * (start - end + 1)) + end;
+	if (random % 2) return randomEvenBetween(start, end);
+	return random;
 }
