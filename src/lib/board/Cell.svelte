@@ -1,7 +1,7 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <script>
 	import { longest, animationSpeed } from './stores.js';
-	import Start from '$lib/board/Start.svelte';
+	import Start from '$lib/icons/Start.svelte';
 	import Cat from '$lib/icons/Cat.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
 	import Target from '$lib/icons/Target.svelte';
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<div class={`${node.type} ${dist}`} class:sp on:mouseover on:mousedown>
+<div class={`${node.type} ${dist}`} class:sp on:mouseover on:mousedown on:mouseleave on:mouseenter>
 	{#if node.type == 'start'}
 		<Start />
 	{:else if node.type == 'cat'}
