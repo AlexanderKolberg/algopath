@@ -4,14 +4,16 @@
 
 html,
 body,
-.svelte {
+#svelte,
+main {
 	margin: 0;
 	padding: 0;
 	height: 100vh;
 	width: 100vw;
 }
-body {
-	position: relative;
+main {
+	display: flex;
+	flex-flow: column;
 }
 
 html {

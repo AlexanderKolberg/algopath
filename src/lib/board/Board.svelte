@@ -3,11 +3,11 @@
 	import Cell from '$lib/board/Cell.svelte';
 	import { onMount } from 'svelte';
 
-	let innerHeight;
-	let innerWidth;
+	let height;
+	let width;
 	onMount(() => {
-		let colums = Math.floor(innerWidth / 30);
-		let rows = Math.floor((innerHeight - 50) / 30);
+		let colums = Math.floor(width / 30);
+		let rows = Math.floor(height / 30);
 		grid.init(colums, rows);
 	});
 
@@ -40,9 +40,13 @@
 	}
 </script>
 
-<svelte:window bind:innerHeight bind:innerWidth />
-
-<div class="board" on:mouseleave={(dragNode = null)} on:mouseup={(dragNode = null)}>
+<div
+	class="board"
+	bind:clientWidth={width}
+	bind:clientHeight={height}
+	on:mouseleave={(dragNode = null)}
+	on:mouseup={(dragNode = null)}
+>
 	{#each $grid as row, r}
 		<div>
 			{#each row as node, c}
@@ -61,5 +65,6 @@
 <style>
 	.board {
 		display: flex;
+		flex: 1 1 auto;
 	}
 </style>
