@@ -8,6 +8,7 @@
 	import Cat from '$lib/icons/Cat.svelte';
 	import Wall from '$lib/icons/Wall.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
+	import Help from '$lib/icons/Help.svelte';
 </script>
 
 <header>
