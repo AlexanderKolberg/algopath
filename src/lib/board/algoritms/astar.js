@@ -1,23 +1,15 @@
-import { grid, unsolvable, longest, end, start } from '../stores.js';
-import { onDestroy } from 'svelte';
+import { grid, longest, end, start } from '../stores.js';
 import { get } from 'svelte/store';
+import { setClearPath } from './utils.js';
 
 const distance = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
 export default function astar() {
-	let gridValue;
-
-	grid.clearPath();
-
-	const unsubscribe = grid.subscribe((value) => {
-		gridValue = value;
-	});
-
+	let gridValue = get(grid);
+	gridValue = setClearPath(gridValue);
 	let startValue = get(start);
 	let endValue = get(end);
 
-	console.log(startValue);
-	console.log(endValue);
 	let startNode = gridValue[startValue.row][startValue.colum];
 	let endNode = gridValue[endValue.row][endValue.colum];
 
@@ -25,6 +17,7 @@ export default function astar() {
 	let closedSet = [];
 
 	openSet.push(startNode);
+
 	while (openSet.length) {
 		let winner = openSet[0];
 		for (let n of openSet) {
@@ -34,7 +27,6 @@ export default function astar() {
 		if (current == endNode) {
 			longest.set(current.distance);
 			while (current !== null) {
-				console.log(current.previousNode);
 				current.isShortestPath = true;
 				current = current.previousNode;
 			}
