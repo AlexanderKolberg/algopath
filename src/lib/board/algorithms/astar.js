@@ -1,6 +1,7 @@
-import { grid, longest, end, start } from '../stores.js';
+import { grid, end, start } from '../stores.js';
 import { get } from 'svelte/store';
 import { getNeighbors, setClearPath } from './utils.js';
+import pathAnimation from '../animations/pathfinders/pathAnimation.js';
 
 const distance = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
@@ -11,12 +12,17 @@ export default function astar() {
 	let startValue = get(start);
 	let endValue = get(end);
 
+	let nodesInOrder = [];
+	let shortestPath = [];
+	let unsolvable = false;
+
 	let startNode = gridValue[startValue.row][startValue.colum];
 	let endNode = gridValue[endValue.row][endValue.colum];
 
 	let openSet = [];
 
 	openSet.push(startNode);
+	nodesInOrder.push(startNode);
 
 	while (openSet.length) {
 		let winner = openSet[0];
@@ -25,9 +31,8 @@ export default function astar() {
 		}
 		let current = winner;
 		if (current == endNode) {
-			longest.set(current.distance);
 			while (current !== null) {
-				current.isShortestPath = true;
+				shortestPath.unshift(current);
 				current = current.previousNode;
 			}
 			break;
@@ -36,6 +41,7 @@ export default function astar() {
 		current.isUnvisited = false;
 		let neighbors = getNeighbors(gridValue, current);
 		for (let neighbor of neighbors) {
+			nodesInOrder.push(neighbor);
 			let tempG = current.distance + neighbor.obstacle;
 			if (openSet.includes(neighbor)) {
 				if (tempG < neighbor.distance) {
@@ -49,6 +55,6 @@ export default function astar() {
 			neighbor.h = distance(neighbor.colum, neighbor.row, endNode.colum, endNode.row);
 			neighbor.f = neighbor.distance + neighbor.h;
 		}
-		grid.forceUpdate();
 	}
+	pathAnimation(nodesInOrder, shortestPath, unsolvable);
 }

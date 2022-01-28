@@ -7,17 +7,9 @@
 	import Target from '$lib/icons/Target.svelte';
 
 	export let node;
-	$: dist = Infinity;
-	$: sp = false;
-	$: if (node.distance < Infinity && node.distance > 0)
-		setTimeout(() => (dist = 'checked'), node.distance * 200);
-	else dist = Infinity;
-	$: if (node.isShortestPath) {
-		setTimeout(() => (sp = true), node.distance * 200 + $longest * 200);
-	} else sp = false;
 </script>
 
-<div class={`${node.type} ${dist}`} class:sp on:mouseover on:mousedown on:mouseleave on:mouseenter>
+<div class={`${node.type} ${node.classes}`} on:mouseover on:mousedown on:mouseleave on:mouseenter>
 	{#if node.type == 'start'}
 		<Start />
 	{:else if node.type == 'cat'}
@@ -43,20 +35,12 @@
 	.digger {
 		background: red;
 	}
-	@keyframes color-me-in {
-		0% {
-			background: white;
-		}
-		100% {
-			background: rgb(57, 99, 57);
-		}
-	}
 
 	.checked {
 		background: rgb(57, 99, 57);
-		/*animation: color-me-in .5s; */
+		/* animation: color-me-in 0.5s; */
 	}
-	.sp {
+	.shortestPath {
 		background-color: rgb(162, 231, 162);
 		transition: background-color 2s;
 	}
