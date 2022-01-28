@@ -1,11 +1,9 @@
-import { animationSpeed, grid } from '../../stores.js';
+import depthFirstAnimation from '$lib/board/animations/maze/depthFirstAnimation.js';
+import { get } from 'svelte/store';
+import { grid } from '../../stores.js';
 
 export default function depthFirst() {
-	grid.allWall();
-	let matrix = [];
-	grid.subscribe((m) => {
-		matrix = m;
-	});
+	let matrix = get(grid);
 
 	let visitedInOrder = []; //All visited, for animation
 
@@ -28,6 +26,7 @@ export default function depthFirst() {
 			visitedInOrder.push(current);
 		}
 	} while (visited.length);
+	depthFirstAnimation(visitedInOrder);
 
 	function getNeighbors(n) {
 		let c = n.colum;
@@ -62,25 +61,4 @@ export default function depthFirst() {
 			matrix[row][colum].isUnvisited2
 		);
 	}
-	animationSpeed.subscribe((speed) => {
-		const example = async () => {
-			for (const node of visitedInOrder) {
-				await setDigger(node);
-			}
-			visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('start');
-			visitedInOrder[Math.floor(Math.random() * visitedInOrder.length)].setType('target');
-			grid.forceUpdate();
-		};
-
-		const setDigger = (node) => {
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					node.type = 'digger';
-					grid.forceUpdate();
-					resolve();
-				}, speed);
-			});
-		};
-		example();
-	});
 }

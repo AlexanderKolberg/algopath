@@ -1,8 +1,8 @@
 <script>
 	import ButtonWdrop from './ButtonWdropdown.svelte';
-	import depthFirst from '$lib/board/algoritms/maze/depthFirst.js';
-	import randomMaze from '$lib/board/algoritms/maze/randomMaze.js';
-	import recursiveDivision from '$lib/board/algoritms/maze/recursivedivision.js';
+	import depthFirst from '$lib/board/algorithms/maze/depthFirst.js';
+	import randomMaze from '$lib/board/algorithms/maze/randomMaze.js';
+	import recursiveDivision from '$lib/board/algorithms/maze/recursivedivision.js';
 
 	let algoList = ['Depth First', 'Random', 'Recursive Division'];
 	let activeAlgo = 'Depth First';

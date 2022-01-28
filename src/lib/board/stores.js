@@ -20,13 +20,6 @@ function newGrid(columns, rows) {
 	return grid;
 }
 
-function justWalls(columns, rows) {
-	let grid = [...Array(columns)].map((_, row) =>
-		[...Array(rows)].map((_, colum) => new Node(row, colum, 'wall'))
-	);
-	return grid;
-}
-
 function createGrid() {
 	const { subscribe, set, update } = writable([]);
 	return {
@@ -34,7 +27,6 @@ function createGrid() {
 		init: (columns, rows) => set(ini(columns, rows)),
 		set,
 		reset: () => set(newGrid(gridColumns, gridRows)),
-		allWall: () => set(justWalls(gridColumns, gridRows)),
 		forceUpdate: () => update((n) => n)
 	};
 }

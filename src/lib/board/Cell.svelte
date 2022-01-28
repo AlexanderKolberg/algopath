@@ -15,9 +15,6 @@
 	$: if (node.isShortestPath) {
 		setTimeout(() => (sp = true), node.distance * 200 + $longest * 200);
 	} else sp = false;
-	$: if (node.type == 'digger') {
-		setTimeout(() => (node.type = 'empty'), animationSpeed);
-	}
 </script>
 
 <div class={`${node.type} ${dist}`} class:sp on:mouseover on:mousedown on:mouseleave on:mouseenter>

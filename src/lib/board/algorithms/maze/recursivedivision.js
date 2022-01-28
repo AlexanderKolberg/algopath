@@ -1,8 +1,11 @@
+import mazeAnimation from '$lib/board/animations/maze/mazeAnimation.js';
 import { get } from 'svelte/store';
 import { grid } from '../../stores.js';
+import { setClearGrid } from '../utils.js';
 
 export default function recursiveDivision() {
 	let matrix = get(grid);
+	matrix = setClearGrid(matrix);
 	let nodesInOrder = [];
 	let columns = matrix.length;
 	let rows = matrix[0].length;
@@ -41,23 +44,7 @@ export default function recursiveDivision() {
 			division(columnStart, columnEnd, wall, rowEnd);
 		}
 	}
-	const example = async () => {
-		for (const node of nodesInOrder) {
-			await setDigger(node);
-		}
-		grid.forceUpdate();
-	};
-
-	const setDigger = (node) => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				node.type = 'wall';
-				grid.forceUpdate();
-				resolve();
-			}, 30);
-		});
-	};
-	example();
+	mazeAnimation(nodesInOrder);
 }
 
 function getDivideColumns(columns, rows) {
