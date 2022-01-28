@@ -1,6 +1,6 @@
 import { grid, longest, status } from '../stores.js';
 import { get } from 'svelte/store';
-import { setClearPath } from './utils.js';
+import { getNeighbors, setClearPath } from './utils.js';
 
 export default function dijkstra() {
 	let gridValue = get(grid);
@@ -16,7 +16,7 @@ export default function dijkstra() {
 		}
 		current = unvisited.shift();
 		if (current.type == 'wall') continue;
-		let neighbors = getNeighbors(current);
+		let neighbors = getNeighbors(gridValue, current);
 		neighbors.forEach((neighbor) => {
 			let distance = current.distance + neighbor.obstacle;
 			neighbor.distance = Math.min(neighbor.distance, distance);
@@ -34,25 +34,4 @@ export default function dijkstra() {
 	}
 	grid.set(gridValue);
 	status.set('solved');
-
-	function getNeighbors(node) {
-		let c = node.colum;
-		let r = node.row;
-		let neighbors = [];
-		let validNode = (row, colum) => {
-			return (
-				row >= 0 &&
-				row < gridValue.length &&
-				colum >= 0 &&
-				colum < gridValue[0].length &&
-				gridValue[row][colum].isUnvisited &&
-				gridValue[row][colum].type != 'wall'
-			);
-		};
-		if (validNode(r, c - 1)) neighbors.push(gridValue[r][c - 1]);
-		if (validNode(r, c + 1)) neighbors.push(gridValue[r][c + 1]);
-		if (validNode(r - 1, c)) neighbors.push(gridValue[r - 1][c]);
-		if (validNode(r + 1, c)) neighbors.push(gridValue[r + 1][c]);
-		return neighbors;
-	}
 }

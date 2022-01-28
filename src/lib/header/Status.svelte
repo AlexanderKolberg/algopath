@@ -9,6 +9,8 @@
 		Maze solved
 	{:else if $status == 'unsolvable'}
 		<span class="red">No path</span>
+	{:else if $status == 'inProgress'}
+		Animation in progress
 	{/if}
 </div>
 

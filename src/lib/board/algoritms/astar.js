@@ -1,6 +1,6 @@
 import { grid, longest, end, start } from '../stores.js';
 import { get } from 'svelte/store';
-import { setClearPath } from './utils.js';
+import { getNeighbors, setClearPath } from './utils.js';
 
 const distance = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
@@ -15,14 +15,13 @@ export default function astar() {
 	let endNode = gridValue[endValue.row][endValue.colum];
 
 	let openSet = [];
-	let closedSet = [];
 
 	openSet.push(startNode);
 
 	while (openSet.length) {
 		let winner = openSet[0];
-		for (let n of openSet) {
-			if (n.f < winner.f) winner = n;
+		for (let node of openSet) {
+			if (node.f < winner.f) winner = node;
 		}
 		let current = winner;
 		if (current == endNode) {
@@ -34,45 +33,22 @@ export default function astar() {
 			break;
 		}
 		openSet = openSet.filter((n) => n != current);
-		closedSet.push(current);
-		let neighbors = getNeighbors(current);
+		current.isUnvisited = false;
+		let neighbors = getNeighbors(gridValue, current);
 		for (let neighbor of neighbors) {
-			if (!closedSet.includes(neighbor)) {
-				let tempG = current.distance + neighbor.obstacle;
-				if (openSet.includes(neighbor)) {
-					if (tempG < neighbor.distance) {
-						neighbor.distance = tempG;
-					}
-				} else {
+			let tempG = current.distance + neighbor.obstacle;
+			if (openSet.includes(neighbor)) {
+				if (tempG < neighbor.distance) {
 					neighbor.distance = tempG;
-					openSet.push(neighbor);
 				}
-				neighbor.previousNode = current;
-				neighbor.h = distance(neighbor.colum, neighbor.row, endNode.colum, endNode.row);
-				neighbor.f = neighbor.distance + neighbor.h;
+			} else {
+				neighbor.distance = tempG;
+				openSet.push(neighbor);
 			}
+			neighbor.previousNode = current;
+			neighbor.h = distance(neighbor.colum, neighbor.row, endNode.colum, endNode.row);
+			neighbor.f = neighbor.distance + neighbor.h;
 		}
 		grid.forceUpdate();
-	}
-
-	function getNeighbors(node) {
-		let c = node.colum;
-		let r = node.row;
-		let neighbors = [];
-		let validNode = (row, colum) => {
-			return (
-				row >= 0 &&
-				row < gridValue.length &&
-				colum >= 0 &&
-				colum < gridValue[0].length &&
-				//gridValue[row][colum].isUnvisited &&
-				gridValue[row][colum].type != 'wall'
-			);
-		};
-		if (validNode(r, c - 1)) neighbors.push(gridValue[r][c - 1]);
-		if (validNode(r, c + 1)) neighbors.push(gridValue[r][c + 1]);
-		if (validNode(r - 1, c)) neighbors.push(gridValue[r - 1][c]);
-		if (validNode(r + 1, c)) neighbors.push(gridValue[r + 1][c]);
-		return neighbors;
 	}
 }
