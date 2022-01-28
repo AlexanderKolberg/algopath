@@ -14,8 +14,8 @@ export default async function mazeAnimation(nodes) {
 	}
 	const columns = gridValue[0].length;
 	const rows = gridValue.length;
-	randomEmptyNode(gridValue, rows, columns).type = 'start';
-	randomEmptyNode(gridValue, rows, columns).type = 'target';
+	randomEmptyNode(gridValue, rows, columns).setType('start');
+	randomEmptyNode(gridValue, rows, columns).setType('target');
 	status.set('done');
 }
 
