@@ -41,11 +41,10 @@ function createGrid() {
 
 export const reset = () => {
 	grid.reset();
-	unsolvable.set(false);
+	status.set('');
 };
 
 export const grid = createGrid();
-export const unsolvable = writable(false);
 export const status = writable('');
 export const longest = writable(0);
 export const start = writable({ row: undefined, colum: undefined });
