@@ -26,18 +26,6 @@ function justWalls(columns, rows) {
 	);
 	return grid;
 }
-function setClearPath(grid) {
-	grid = grid.map((r) =>
-		r.map((n) => {
-			if (!['start', 'target', 'wall', 'cat', 'log'].includes(n.type)) {
-				n.type = 'empty';
-			}
-			n.ini();
-			return n;
-		})
-	);
-	return grid;
-}
 
 function createGrid() {
 	const { subscribe, set, update } = writable([]);
@@ -47,8 +35,7 @@ function createGrid() {
 		set,
 		reset: () => set(newGrid(gridColumns, gridRows)),
 		allWall: () => set(justWalls(gridColumns, gridRows)),
-		forceUpdate: () => update((n) => n),
-		clearPath: () => update((n) => setClearPath(n))
+		forceUpdate: () => update((n) => n)
 	};
 }
 
@@ -59,6 +46,7 @@ export const reset = () => {
 
 export const grid = createGrid();
 export const unsolvable = writable(false);
+export const status = writable('');
 export const longest = writable(0);
 export const start = writable({ row: undefined, colum: undefined });
 export const end = writable({ row: undefined, colum: undefined });

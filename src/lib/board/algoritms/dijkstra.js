@@ -1,21 +1,17 @@
-import { grid, unsolvable, longest } from '../stores.js';
-import { onDestroy } from 'svelte';
+import { grid, longest, status } from '../stores.js';
+import { get } from 'svelte/store';
+import { setClearPath } from './utils.js';
 
 export default function dijkstra() {
-	let gridValue;
-
-	grid.clearPath();
-
-	const unsubscribe = grid.subscribe((value) => {
-		gridValue = value;
-	});
+	let gridValue = get(grid);
+	gridValue = setClearPath(gridValue);
 	let unvisited = gridValue.flat();
 	let current;
 
 	while (unvisited.length) {
 		unvisited.sort((a, b) => a.distance - b.distance);
 		if (unvisited[0].distance == Infinity) {
-			unsolvable.set(true);
+			status.set('unsolvable');
 			break;
 		}
 		current = unvisited.shift();
@@ -37,7 +33,7 @@ export default function dijkstra() {
 		}
 	}
 	grid.set(gridValue);
-	onDestroy(unsubscribe);
+	status.set('solved');
 
 	function getNeighbors(node) {
 		let c = node.colum;

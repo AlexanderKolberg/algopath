@@ -11,33 +11,34 @@
 		grid.init(colums, rows);
 	});
 
+	const setNodeType = (row, collum, type) => {
+		$grid[row][collum].setType(type);
+		$grid[row][collum] = $grid[row][collum];
+	};
+
 	let dragNode = null;
-	function mouseHandler(event, row, collum) {
+	const mouseHandler = (event, row, collum) => {
 		if (event.buttons != 1 || dragNode !== null) return;
 		let currentValue = $grid[row][collum].type;
 		if (currentValue == 'empty') {
-			$grid[row][collum].type = $activeDrawer;
-			$grid[row][collum].setType($activeDrawer);
+			setNodeType(row, collum, $activeDrawer);
 		} else if (!['start', 'target'].includes(currentValue)) {
-			$grid[row][collum].type = 'empty';
-			$grid[row][collum].setType('empty');
+			setNodeType(row, collum, 'empty');
 		}
-	}
-	function mouseLeaveHandler(event, row, collum) {
+	};
+	const mouseLeaveHandler = (event, row, collum) => {
 		if (event.buttons != 1) return;
 		let currentValue = $grid[row][collum].type;
 		if (['start', 'target'].includes(currentValue)) {
 			dragNode = { row, collum, type: currentValue };
 		}
-	}
-	function mouseEnterHandler(event, row, collum) {
-		if (event.buttons != 1 || $grid[row][collum].type !== 'empty') return;
-		$grid[dragNode.row][dragNode.collum].type = 'empty';
-		$grid[dragNode.row][dragNode.collum].setType('empty');
-		$grid[row][collum].type = dragNode.type;
-		$grid[row][collum].setType(dragNode.type);
+	};
+	const mouseEnterHandler = (event, row, collum) => {
+		if (event.buttons != 1 || $grid[row][collum].type !== 'empty' || dragNode == null) return;
+		setNodeType(dragNode.row, dragNode.collum, 'empty');
+		setNodeType(row, collum, dragNode.type);
 		dragNode = null;
-	}
+	};
 </script>
 
 <div
