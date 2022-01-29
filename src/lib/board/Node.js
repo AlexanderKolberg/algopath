@@ -27,7 +27,5 @@ export default class Node {
 		this.distance = this.type == 'start' ? 0 : Infinity;
 		this.isUnvisited = true;
 		this.previousNode = null;
-		this.isShortestPath = false;
-		this.isUnvisited2 = true;
 	}
 }

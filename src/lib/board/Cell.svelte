@@ -31,7 +31,7 @@
 
 	.wall {
 		background-color: grey;
-		transition: background-color 1s;
+		/* transition: background-color 1s; */
 	}
 	.digger {
 		background: red;

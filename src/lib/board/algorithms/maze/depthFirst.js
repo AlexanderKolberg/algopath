@@ -1,9 +1,10 @@
 import depthFirstAnimation from '$lib/board/animations/maze/depthFirstAnimation.js';
 import { get } from 'svelte/store';
 import { grid } from '../../stores.js';
+import { setClearGrid } from '../utils.js';
 
 export default function depthFirst() {
-	let matrix = get(grid);
+	let matrix = setClearGrid(get(grid));
 
 	let visitedInOrder = []; //All visited, for animation
 
@@ -12,7 +13,7 @@ export default function depthFirst() {
 	visitedInOrder.push(current);
 
 	do {
-		current.isUnvisited2 = false;
+		current.isUnvisited = false;
 		let [neighbors, walls] = getNeighbors(current);
 		if (neighbors.length) {
 			visited.push(current);
@@ -58,7 +59,7 @@ export default function depthFirst() {
 			row < matrix.length - 1 &&
 			colum > 0 &&
 			colum < matrix[0].length - 1 &&
-			matrix[row][colum].isUnvisited2
+			matrix[row][colum].isUnvisited
 		);
 	}
 }
