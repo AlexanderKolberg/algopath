@@ -41,31 +41,35 @@
 	};
 </script>
 
-<div
-	class="board"
-	bind:clientWidth={width}
-	bind:clientHeight={height}
-	on:mouseleave={(dragNode = null)}
-	on:mouseup={(dragNode = null)}
->
-	{#each $grid as row, r}
-		<div>
-			{#each row as node, c}
-				<Cell
-					{node}
-					on:mousedown={(event) => mouseHandler(event, r, c)}
-					on:mouseover={(event) => mouseHandler(event, r, c)}
-					on:mouseleave={(event) => mouseLeaveHandler(event, r, c)}
-					on:mouseenter={(event) => mouseEnterHandler(event, r, c)}
-				/>
-			{/each}
-		</div>
-	{/each}
+<div class="container" bind:clientWidth={width} bind:clientHeight={height}>
+	<div class="board" on:mouseleave={(dragNode = null)} on:mouseup={(dragNode = null)}>
+		{#each $grid as row, r}
+			<div>
+				{#each row as node, c}
+					<Cell
+						{node}
+						on:mousedown={(event) => mouseHandler(event, r, c)}
+						on:mouseover={(event) => mouseHandler(event, r, c)}
+						on:mouseleave={(event) => mouseLeaveHandler(event, r, c)}
+						on:mouseenter={(event) => mouseEnterHandler(event, r, c)}
+					/>
+				{/each}
+			</div>
+		{/each}
+	</div>
 </div>
 
 <style>
+	.container {
+		flex: 1 1 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	.board {
 		display: flex;
-		flex: 1 1 auto;
+		border-left: 1px solid;
+		border-top: 1px solid;
+		border-color: lightgrey;
 	}
 </style>

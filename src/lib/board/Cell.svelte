@@ -1,6 +1,5 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <script>
-	import { longest, animationSpeed } from './stores.js';
 	import Start from '$lib/icons/Start.svelte';
 	import Cat from '$lib/icons/Cat.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
@@ -23,14 +22,16 @@
 
 <style>
 	div {
-		border: solid 1px lightgrey;
+		border-right: solid 1px;
+		border-bottom: solid 1px;
+		border-color: lightgrey;
 		height: 30px;
 		aspect-ratio: 1;
-		/* cursor: url('../images/wall.png'),pointer; */
 	}
+
 	.wall {
 		background-color: grey;
-		/* transition: background-color 1s; */
+		transition: background-color 1s;
 	}
 	.digger {
 		background: red;
