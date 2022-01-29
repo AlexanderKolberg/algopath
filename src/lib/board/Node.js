@@ -1,9 +1,9 @@
 import { start, end } from './stores.js';
 
 export default class Node {
-	constructor(row, colum, type = 'empty') {
+	constructor(row, column, type = 'empty') {
 		this.row = row;
-		this.colum = colum;
+		this.column = column;
 		this.setType(type);
 		this.ini();
 	}
@@ -12,10 +12,10 @@ export default class Node {
 		this.obstacle = 1;
 		if (type == 'start') {
 			this.distance = 0;
-			start.set({ row: this.row, colum: this.colum });
+			start.set({ row: this.row, column: this.column });
 		}
 		if (type == 'target') {
-			end.set({ row: this.row, colum: this.colum });
+			end.set({ row: this.row, column: this.column });
 		}
 		if (type == 'logs') this.obstacle = 2;
 		if (type == 'cat') this.obstacle = 3;

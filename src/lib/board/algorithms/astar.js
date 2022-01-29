@@ -16,8 +16,8 @@ export default function astar() {
 	let shortestPath = [];
 	let unsolvable = false;
 
-	let startNode = gridValue[startValue.row][startValue.colum];
-	let endNode = gridValue[endValue.row][endValue.colum];
+	let startNode = gridValue[startValue.row][startValue.column];
+	let endNode = gridValue[endValue.row][endValue.column];
 
 	let openSet = [];
 
@@ -52,7 +52,7 @@ export default function astar() {
 				openSet.push(neighbor);
 			}
 			neighbor.previousNode = current;
-			neighbor.h = distance(neighbor.colum, neighbor.row, endNode.colum, endNode.row);
+			neighbor.h = distance(neighbor.column, neighbor.row, endNode.column, endNode.row);
 			neighbor.f = neighbor.distance + neighbor.h;
 		}
 	}

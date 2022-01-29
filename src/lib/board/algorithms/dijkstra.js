@@ -13,15 +13,15 @@ export default function dijkstra() {
 	let shortestPath = [];
 	let unsolvable = false;
 
-	while (unvisited.length) {
+	while (unvisited.length !== 0) {
 		unvisited.sort((a, b) => a.distance - b.distance);
 		if (unvisited[0].distance == Infinity) {
 			unsolvable = true;
 			break;
 		}
 		current = unvisited.shift();
-		nodesInOrder.push(current);
 		if (current.type == 'wall') continue;
+		nodesInOrder.push(current);
 		let neighbors = getNeighbors(gridValue, current);
 		neighbors.forEach((neighbor) => {
 			let distance = current.distance + neighbor.obstacle;

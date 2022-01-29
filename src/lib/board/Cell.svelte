@@ -10,7 +10,7 @@
 
 <div class={`${node.type} ${node.classes}`} on:mouseover on:mousedown on:mouseleave on:mouseenter>
 	{#if node.type == 'start'}
-		<Start />
+		<Start id="start" />
 	{:else if node.type == 'cat'}
 		<Cat width="20px" height="20px" fill="black" />
 	{:else if node.type == 'logs'}

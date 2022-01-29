@@ -11,7 +11,7 @@ function ini(columns, rows) {
 
 function newGrid(columns, rows) {
 	let grid = [...Array(columns)].map((_, row) =>
-		[...Array(rows)].map((_, colum) => new Node(row, colum))
+		[...Array(rows)].map((_, column) => new Node(row, column))
 	);
 	let centerX = Math.floor(grid.length / 2);
 	let centerY = Math.floor(grid[0].length / 2);
@@ -39,7 +39,7 @@ export const reset = () => {
 export const grid = createGrid();
 export const status = writable('');
 export const longest = writable(0);
-export const start = writable({ row: undefined, colum: undefined });
-export const end = writable({ row: undefined, colum: undefined });
+export const start = writable({ row: undefined, column: undefined });
+export const end = writable({ row: undefined, column: undefined });
 export const activeDrawer = writable('wall');
 export const animationSpeed = writable('15');

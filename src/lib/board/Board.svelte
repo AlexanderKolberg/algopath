@@ -6,37 +6,37 @@
 	let height;
 	let width;
 	onMount(() => {
-		let colums = Math.floor(width / 30);
+		let columns = Math.floor(width / 30);
 		let rows = Math.floor(height / 30);
-		grid.init(colums, rows);
+		grid.init(columns, rows);
 	});
 
-	const setNodeType = (row, collum, type) => {
-		$grid[row][collum].setType(type);
-		$grid[row][collum] = $grid[row][collum];
+	const setNodeType = (row, column, type) => {
+		$grid[row][column].setType(type);
+		$grid[row][column] = $grid[row][column];
 	};
 
 	let dragNode = null;
-	const mouseHandler = (event, row, collum) => {
+	const mouseHandler = (event, row, column) => {
 		if (event.buttons != 1 || dragNode !== null) return;
-		let currentValue = $grid[row][collum].type;
+		let currentValue = $grid[row][column].type;
 		if (currentValue == 'empty') {
-			setNodeType(row, collum, $activeDrawer);
+			setNodeType(row, column, $activeDrawer);
 		} else if (!['start', 'target'].includes(currentValue)) {
-			setNodeType(row, collum, 'empty');
+			setNodeType(row, column, 'empty');
 		}
 	};
-	const mouseLeaveHandler = (event, row, collum) => {
+	const mouseLeaveHandler = (event, row, column) => {
 		if (event.buttons != 1) return;
-		let currentValue = $grid[row][collum].type;
+		let currentValue = $grid[row][column].type;
 		if (['start', 'target'].includes(currentValue)) {
-			dragNode = { row, collum, type: currentValue };
+			dragNode = { row, column, type: currentValue };
 		}
 	};
-	const mouseEnterHandler = (event, row, collum) => {
-		if (event.buttons != 1 || $grid[row][collum].type !== 'empty' || dragNode == null) return;
-		setNodeType(dragNode.row, dragNode.collum, 'empty');
-		setNodeType(row, collum, dragNode.type);
+	const mouseEnterHandler = (event, row, column) => {
+		if (event.buttons != 1 || $grid[row][column].type !== 'empty' || dragNode == null) return;
+		setNodeType(dragNode.row, dragNode.column, 'empty');
+		setNodeType(row, column, dragNode.type);
 		dragNode = null;
 	};
 </script>

@@ -30,7 +30,7 @@ export default function depthFirst() {
 	depthFirstAnimation(visitedInOrder);
 
 	function getNeighbors(n) {
-		let c = n.colum;
+		let c = n.column;
 		let r = n.row;
 		let neighbors = [];
 		let walls = [];
@@ -53,13 +53,13 @@ export default function depthFirst() {
 		return [neighbors, walls];
 	}
 
-	function validNode(row, colum) {
+	function validNode(row, column) {
 		return (
 			row > 0 &&
 			row < matrix.length - 1 &&
-			colum > 0 &&
-			colum < matrix[0].length - 1 &&
-			matrix[row][colum].isUnvisited
+			column > 0 &&
+			column < matrix[0].length - 1 &&
+			matrix[row][column].isUnvisited
 		);
 	}
 }
