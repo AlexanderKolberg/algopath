@@ -44,7 +44,7 @@ export default function astar() {
 			nodesInOrder.push(neighbor);
 			let tempG = current.distance + neighbor.obstacle;
 			if (openSet.includes(neighbor)) {
-				if (tempG < neighbor.distance) {
+				if (tempG < neighbor.distance + neighbor.obstacle) {
 					neighbor.distance = tempG;
 				}
 			} else {
