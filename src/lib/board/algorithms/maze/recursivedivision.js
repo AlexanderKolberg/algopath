@@ -1,22 +1,22 @@
 import mazeAnimation from '$lib/board/animations/maze/mazeAnimation.js';
 import { get } from 'svelte/store';
-import { grid } from '../../stores.js';
+import { gridStore } from '../../stores.js';
 import { setClearGrid } from '../utils.js';
 
 export default function recursiveDivision() {
-	let matrix = get(grid);
-	matrix = setClearGrid(matrix);
-	let nodesInOrder = [];
-	let columns = matrix.length;
-	let rows = matrix[0].length;
+	let grid = get(gridStore);
+	grid = setClearGrid(grid);
+	let visitedInOrder = [];
+	let columns = grid.length;
+	let rows = grid[0].length;
 
 	if (!(columns % 2)) columns--;
 	if (!(rows % 2)) rows--;
 	(function addOuterWalls() {
-		for (let r = 0; r < rows; r++) nodesInOrder.push(matrix[0][r]);
-		for (let c = 0; c < columns; c++) nodesInOrder.push(matrix[c][rows - 1]);
-		for (let r = rows - 1; r >= 0; r--) nodesInOrder.push(matrix[columns - 1][r]);
-		for (let c = columns - 1; c >= 0; c--) nodesInOrder.push(matrix[c][0]);
+		for (let r = 0; r < rows; r++) visitedInOrder.push(grid[0][r]);
+		for (let c = 0; c < columns; c++) visitedInOrder.push(grid[c][rows - 1]);
+		for (let r = rows - 1; r >= 0; r--) visitedInOrder.push(grid[columns - 1][r]);
+		for (let c = columns - 1; c >= 0; c--) visitedInOrder.push(grid[c][0]);
 	})();
 	division(1, columns - 1, 1, rows - 1);
 	function division(columnStart, columnEnd, rowStart, rowEnd) {
@@ -32,19 +32,19 @@ export default function recursiveDivision() {
 			: randomOddBetween(columnStart, columnEnd);
 		if (divideColumns) {
 			for (let r = rowStart; r < rowEnd; r++) {
-				if (r != open) nodesInOrder.push(matrix[wall][r]);
+				if (r != open) visitedInOrder.push(grid[wall][r]);
 			}
 			division(wall, columnEnd, rowStart, rowEnd);
 			division(columnStart, wall, rowStart, rowEnd);
 		} else {
 			for (let c = columnStart; c < columnEnd; c++) {
-				if (c != open) nodesInOrder.push(matrix[c][wall]);
+				if (c != open) visitedInOrder.push(grid[c][wall]);
 			}
 			division(columnStart, columnEnd, rowStart, wall);
 			division(columnStart, columnEnd, wall, rowEnd);
 		}
 	}
-	mazeAnimation(nodesInOrder);
+	mazeAnimation(visitedInOrder);
 }
 
 function getDivideColumns(columns, rows) {

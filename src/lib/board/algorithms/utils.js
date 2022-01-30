@@ -46,7 +46,7 @@ export function getNeighbors(grid, node) {
 			row < grid.length &&
 			column >= 0 &&
 			column < grid[0].length &&
-			grid[row][column].isUnvisited &&
+			grid[row][column].visited == false &&
 			grid[row][column].type != 'wall'
 		);
 	};

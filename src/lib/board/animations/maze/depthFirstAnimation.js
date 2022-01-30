@@ -1,19 +1,19 @@
 import { setAllWalls } from '$lib/board/algorithms/utils';
-import { animationSpeed, grid, status } from '$lib/board/stores';
+import { gridStore, statusStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
+import { wait } from '../utils';
 export default async function depthFirstAnimation(nodes) {
-	status.set('inProgress');
-	grid.set(setAllWalls(get(grid)));
+	statusStore.set('inProgress');
+	gridStore.set(setAllWalls(get(gridStore)));
 	for (let node of nodes) {
-		let speed = get(animationSpeed);
-		await new Promise((resolve) => setTimeout(resolve, speed));
+		await wait();
 		node.type = 'digger';
-		grid.forceUpdate();
-		await new Promise((resolve) => setTimeout(resolve, speed));
+		gridStore.forceUpdate();
+		await wait();
 		node.type = 'empty';
-		grid.forceUpdate();
+		gridStore.forceUpdate();
 	}
 	nodes[Math.floor(Math.random() * nodes.length)].setType('start');
 	nodes[Math.floor(Math.random() * nodes.length)].setType('target');
-	status.set('done');
+	statusStore.set('done');
 }

@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
-import { animationSpeed } from '../stores';
+import { animationSpeedStore } from '../stores';
 
 export async function wait(factor = 1) {
-	let speed = get(animationSpeed);
+	let speed = get(animationSpeedStore);
 	await new Promise((resolve) => setTimeout(resolve, speed * factor));
 }

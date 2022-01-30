@@ -1,7 +1,7 @@
 <script>
 	import ButtonWdrop from './ButtonWdropdown.svelte';
-	import dijkstra from '$lib/board/algorithms/dijkstra.js';
-	import astar from '$lib/board/algorithms/astar.js';
+	import dijkstra from '$lib/board/algorithms/pathfinders/dijkstra.js';
+	import astar from '$lib/board/algorithms/pathfinders/astar.js';
 	let algoList = ['Dijkstra', 'A*'];
 	let activeAlgo = 'Dijkstra';
 	function changeAlgo(event) {

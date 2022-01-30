@@ -1,14 +1,15 @@
 import mazeAnimation from '$lib/board/animations/maze/mazeAnimation.js';
 import { get } from 'svelte/store';
-import { grid } from '../../stores.js';
+import { gridStore } from '../../stores.js';
 
 export default function randomMaze() {
-	let gridValue = get(grid);
-	let nodesInOrder = [];
-	gridValue.forEach((row) =>
+	let grid = get(gridStore);
+	let visitedInOrder = [];
+	grid.forEach((row) =>
 		row.forEach((node) => {
-			if (Math.random() > 0.7 && !['start', 'target'].includes(node.type)) nodesInOrder.push(node);
+			if (Math.random() > 0.7 && !['start', 'target'].includes(node.type))
+				visitedInOrder.push(node);
 		})
 	);
-	mazeAnimation(nodesInOrder);
+	mazeAnimation(visitedInOrder);
 }

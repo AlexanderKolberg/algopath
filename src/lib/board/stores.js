@@ -32,14 +32,13 @@ function createGrid() {
 }
 
 export const reset = () => {
-	grid.reset();
-	status.set('');
+	gridStore.reset();
+	statusStore.set('');
 };
 
-export const grid = createGrid();
-export const status = writable('');
-export const longest = writable(0);
-export const start = writable({ row: undefined, column: undefined });
-export const end = writable({ row: undefined, column: undefined });
-export const activeDrawer = writable('wall');
-export const animationSpeed = writable('15');
+export const gridStore = createGrid();
+export const statusStore = writable('');
+export const startStore = writable({ row: undefined, column: undefined });
+export const endStore = writable({ row: undefined, column: undefined });
+export const activeObstacleStore = writable('wall');
+export const animationSpeedStore = writable('15');

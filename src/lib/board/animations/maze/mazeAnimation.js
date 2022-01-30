@@ -1,22 +1,22 @@
 import { setClearGrid } from '$lib/board/algorithms/utils';
-import { animationSpeed, grid, status } from '$lib/board/stores';
+import { gridStore, statusStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
+import { wait } from '../utils';
 
 export default async function mazeAnimation(nodes) {
-	status.set('inProgress');
-	let gridValue = get(grid);
-	grid.set(setClearGrid(gridValue));
+	statusStore.set('inProgress');
+	let grid = get(gridStore);
+	gridStore.set(setClearGrid(grid));
 	for (let node of nodes) {
-		let speed = get(animationSpeed);
-		await new Promise((resolve) => setTimeout(resolve, speed));
+		await wait();
 		node.type = 'wall';
-		grid.forceUpdate();
+		gridStore.forceUpdate();
 	}
-	const columns = gridValue[0].length;
-	const rows = gridValue.length;
-	randomEmptyNode(gridValue, rows, columns).setType('start');
-	randomEmptyNode(gridValue, rows, columns).setType('target');
-	status.set('done');
+	const columns = grid[0].length;
+	const rows = grid.length;
+	randomEmptyNode(grid, rows, columns).setType('start');
+	randomEmptyNode(grid, rows, columns).setType('target');
+	statusStore.set('done');
 }
 
 function randomEmptyNode(grid, rows, columns) {

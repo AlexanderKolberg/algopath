@@ -1,4 +1,4 @@
-import { start, end } from './stores.js';
+import { startStore, endStore } from './stores.js';
 
 export default class Node {
 	constructor(row, column, type = 'empty') {
@@ -12,10 +12,10 @@ export default class Node {
 		this.obstacle = 1;
 		if (type == 'start') {
 			this.distance = 0;
-			start.set({ row: this.row, column: this.column });
+			startStore.set({ row: this.row, column: this.column });
 		}
 		if (type == 'target') {
-			end.set({ row: this.row, column: this.column });
+			endStore.set({ row: this.row, column: this.column });
 		}
 		if (type == 'logs') this.obstacle = 2;
 		if (type == 'cat') this.obstacle = 3;
@@ -25,7 +25,7 @@ export default class Node {
 		this.h = Infinity;
 		this.f = Infinity;
 		this.distance = this.type == 'start' ? 0 : Infinity;
-		this.isUnvisited = true;
+		this.visited = false;
 		this.previousNode = null;
 	}
 }

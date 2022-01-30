@@ -1,19 +1,19 @@
 import depthFirstAnimation from '$lib/board/animations/maze/depthFirstAnimation.js';
 import { get } from 'svelte/store';
-import { grid } from '../../stores.js';
+import { gridStore } from '../../stores.js';
 import { setClearGrid } from '../utils.js';
 
 export default function depthFirst() {
-	let matrix = setClearGrid(get(grid));
+	let grid = setClearGrid(get(gridStore));
 
 	let visitedInOrder = []; //All visited, for animation
 
 	let visited = [];
-	let current = matrix[1][1];
+	let current = grid[1][1];
 	visitedInOrder.push(current);
 
 	do {
-		current.isUnvisited = false;
+		current.visited = true;
 		let [neighbors, walls] = getNeighbors(current);
 		if (neighbors.length) {
 			visited.push(current);
@@ -35,20 +35,20 @@ export default function depthFirst() {
 		let neighbors = [];
 		let walls = [];
 		if (validNode(r, c - 2)) {
-			neighbors.push(matrix[r][c - 2]);
-			walls.push(matrix[r][c - 1]);
+			neighbors.push(grid[r][c - 2]);
+			walls.push(grid[r][c - 1]);
 		}
 		if (validNode(r, c + 2)) {
-			neighbors.push(matrix[r][c + 2]);
-			walls.push(matrix[r][c + 1]);
+			neighbors.push(grid[r][c + 2]);
+			walls.push(grid[r][c + 1]);
 		}
 		if (validNode(r - 2, c)) {
-			neighbors.push(matrix[r - 2][c]);
-			walls.push(matrix[r - 1][c]);
+			neighbors.push(grid[r - 2][c]);
+			walls.push(grid[r - 1][c]);
 		}
 		if (validNode(r + 2, c)) {
-			neighbors.push(matrix[r + 2][c]);
-			walls.push(matrix[r + 1][c]);
+			neighbors.push(grid[r + 2][c]);
+			walls.push(grid[r + 1][c]);
 		}
 		return [neighbors, walls];
 	}
@@ -56,10 +56,10 @@ export default function depthFirst() {
 	function validNode(row, column) {
 		return (
 			row > 0 &&
-			row < matrix.length - 1 &&
+			row < grid.length - 1 &&
 			column > 0 &&
-			column < matrix[0].length - 1 &&
-			matrix[row][column].isUnvisited
+			column < grid[0].length - 1 &&
+			grid[row][column].visited == false
 		);
 	}
 }

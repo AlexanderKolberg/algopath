@@ -1,28 +1,28 @@
-import { grid, end, start } from '../stores.js';
+import { gridStore, endStore, startStore } from '../../stores.js';
 import { get } from 'svelte/store';
-import { getNeighbors, setClearPath } from './utils.js';
-import pathAnimation from '../animations/pathfinders/pathAnimation.js';
+import { getNeighbors, setClearPath } from '../utils.js';
+import pathAnimation from '../../animations/pathfinders/pathAnimation.js';
 
 const distance = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
 export default function astar() {
-	let gridValue = get(grid);
-	gridValue = setClearPath(gridValue);
-	grid.set(gridValue);
-	let startValue = get(start);
-	let endValue = get(end);
+	let grid = get(gridStore);
+	grid = setClearPath(grid);
+	gridStore.set(grid);
+	let startValue = get(startStore);
+	let endValue = get(endStore);
 
-	let nodesInOrder = [];
+	let visitedInOrder = [];
 	let shortestPath = [];
 	let unsolvable = false;
 
-	let startNode = gridValue[startValue.row][startValue.column];
-	let endNode = gridValue[endValue.row][endValue.column];
+	let startNode = grid[startValue.row][startValue.column];
+	let endNode = grid[endValue.row][endValue.column];
 
 	let openSet = [];
 
 	openSet.push(startNode);
-	nodesInOrder.push(startNode);
+	visitedInOrder.push(startNode);
 
 	while (openSet.length) {
 		let winner = openSet[0];
@@ -38,10 +38,10 @@ export default function astar() {
 			break;
 		}
 		openSet = openSet.filter((n) => n != current);
-		current.isUnvisited = false;
-		let neighbors = getNeighbors(gridValue, current);
+		current.visited = true;
+		let neighbors = getNeighbors(grid, current);
 		for (let neighbor of neighbors) {
-			nodesInOrder.push(neighbor);
+			visitedInOrder.push(neighbor);
 			let tempG = current.distance + neighbor.obstacle;
 			if (openSet.includes(neighbor)) {
 				if (tempG < neighbor.distance + neighbor.obstacle) {
@@ -56,5 +56,5 @@ export default function astar() {
 			neighbor.f = neighbor.distance + neighbor.h;
 		}
 	}
-	pathAnimation(nodesInOrder, shortestPath, unsolvable);
+	pathAnimation(visitedInOrder, shortestPath, unsolvable);
 }

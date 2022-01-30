@@ -1,15 +1,15 @@
-import { grid } from '../stores.js';
+import { gridStore } from '../../stores.js';
 import { get } from 'svelte/store';
-import { getNeighbors, setClearPath } from './utils.js';
-import pathAnimation from '../animations/pathfinders/pathAnimation.js';
+import { getNeighbors, setClearPath } from '../utils.js';
+import pathAnimation from '../../animations/pathfinders/pathAnimation.js';
 
 export default function dijkstra() {
-	let gridValue = get(grid);
-	gridValue = setClearPath(gridValue);
+	let grid = get(gridStore);
+	grid = setClearPath(grid);
 
-	let unvisited = gridValue.flat();
+	let unvisited = grid.flat();
 	let current;
-	let nodesInOrder = [];
+	let visitedInOrder = [];
 	let shortestPath = [];
 	let unsolvable = false;
 
@@ -21,15 +21,15 @@ export default function dijkstra() {
 		}
 		current = unvisited.shift();
 		if (current.type == 'wall') continue;
-		nodesInOrder.push(current);
-		let neighbors = getNeighbors(gridValue, current);
+		visitedInOrder.push(current);
+		let neighbors = getNeighbors(grid, current);
 		neighbors.forEach((neighbor) => {
 			let distance = current.distance + neighbor.obstacle;
 			neighbor.distance = Math.min(neighbor.distance + neighbor.obstacle, distance);
 			neighbor.previousNode = current;
-			nodesInOrder.push(neighbor);
+			visitedInOrder.push(neighbor);
 		});
-		current.isUnvisited = false;
+		current.visited = true;
 		if (current.type == 'target') {
 			while (current !== null) {
 				shortestPath.unshift(current);
@@ -38,5 +38,5 @@ export default function dijkstra() {
 			break;
 		}
 	}
-	pathAnimation(nodesInOrder, shortestPath, unsolvable);
+	pathAnimation(visitedInOrder, shortestPath, unsolvable);
 }
