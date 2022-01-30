@@ -1,5 +1,5 @@
 <script>
-	import { activeDrawer, reset } from '$lib/board/stores.js';
+	import { activeObstacleStore, reset } from '$lib/board/stores.js';
 	import Button from './buttons/Button.svelte';
 	import Status from './Status.svelte';
 	import SolveButton from './buttons/SolveButton.svelte';
@@ -18,19 +18,19 @@
 		<Button on:click={reset}>Clear</Button>
 	</div>
 	<div>
-		<RoundButton on:click={() => ($activeDrawer = 'wall')}
+		<RoundButton on:click={() => ($activeObstacleStore = 'wall')}
 			><Wall
-				fill="var({$activeDrawer == 'wall' ? '--button-selected' : '--button-fg-color'})"
+				fill="var({$activeObstacleStore == 'wall' ? '--button-selected' : '--button-fg-color'})"
 			/></RoundButton
 		>
-		<RoundButton on:click={() => ($activeDrawer = 'cat')}
+		<RoundButton on:click={() => ($activeObstacleStore = 'cat')}
 			><Cat
-				fill="var({$activeDrawer == 'cat' ? '--button-selected' : '--button-fg-color'})"
+				fill="var({$activeObstacleStore == 'cat' ? '--button-selected' : '--button-fg-color'})"
 			/></RoundButton
 		>
-		<RoundButton on:click={() => ($activeDrawer = 'logs')}
+		<RoundButton on:click={() => ($activeObstacleStore = 'logs')}
 			><Logs
-				fill="var({$activeDrawer == 'logs' ? '--button-selected' : '--button-fg-color'})"
+				fill="var({$activeObstacleStore == 'logs' ? '--button-selected' : '--button-fg-color'})"
 			/></RoundButton
 		>
 		<Glider />

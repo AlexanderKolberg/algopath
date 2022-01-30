@@ -1,9 +1,9 @@
 <script>
-	import { animationSpeed } from '$lib/board/stores';
-	let minValue = 1;
+	import { animationSpeedStore } from '$lib/board/stores';
+	let minValue = 0;
 	let maxValue = 100;
 	let value = 50;
-	const onChange = () => ($animationSpeed = maxValue - value);
+	const onChange = () => ($animationSpeedStore = maxValue - value);
 </script>
 
 <label>

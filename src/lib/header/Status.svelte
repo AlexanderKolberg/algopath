@@ -1,15 +1,15 @@
 <script>
-	import { status } from '$lib/board/stores.js';
+	import { statusStore } from '$lib/board/stores.js';
 </script>
 
 <div>
-	{#if $status == ''}
+	{#if $statusStore == ''}
 		Draw a maze or generate one with one of the maze algoritms
-	{:else if $status == 'solved'}
+	{:else if $statusStore == 'solved'}
 		Maze solved
-	{:else if $status == 'unsolvable'}
+	{:else if $statusStore == 'unsolvable'}
 		<span class="red">No path</span>
-	{:else if $status == 'inProgress'}
+	{:else if $statusStore == 'inProgress'}
 		Animation in progress
 	{/if}
 </div>
