@@ -10,18 +10,24 @@ main {
 	padding: 0;
 	height: 100vh;
 	width: 100vw;
+	background-color: var(--background-color);
 }
 main {
 	display: flex;
 	flex-flow: column;
 }
 
-html {
-	--bg-color: #262563;
-	--button-bg-color: #83c983;
-	--button-fg-color: white;
+:root {
+	font-family: Helvetica, sans-serif;
+	--background-color: rgb(241 245 253);
+
+	--header-bg-color: white;
+	--button-bg-color: white;
+	--button-border: 0;
+	--button-border-radius: 2px;
+	--button-fg-color: #3d405b;
 	--button-height: 40px;
-	--button-selected: black;
+	--button-selected: green;
 }
 @keyframes move {
 	0% {
