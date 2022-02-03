@@ -25,8 +25,10 @@ export default function dijkstra() {
 		let neighbors = getNeighbors(grid, current);
 		neighbors.forEach((neighbor) => {
 			let distance = current.distance + neighbor.obstacle;
-			neighbor.distance = Math.min(neighbor.distance + neighbor.obstacle, distance);
-			neighbor.previousNode = current;
+			if (neighbor.distance > distance) {
+				neighbor.distance = distance;
+				neighbor.previousNode = current;
+			}
 			visitedInOrder.push(neighbor);
 		});
 		current.visited = true;

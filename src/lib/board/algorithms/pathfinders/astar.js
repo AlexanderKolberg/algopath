@@ -44,14 +44,14 @@ export default function astar() {
 			visitedInOrder.push(neighbor);
 			let tempG = current.distance + neighbor.obstacle;
 			if (openSet.includes(neighbor)) {
-				if (tempG < neighbor.distance + neighbor.obstacle) {
+				if (tempG < neighbor.distance) {
 					neighbor.distance = tempG;
+					neighbor.previousNode = current;
 				}
 			} else {
 				neighbor.distance = tempG;
 				openSet.push(neighbor);
 			}
-			neighbor.previousNode = current;
 			neighbor.h = distance(neighbor.column, neighbor.row, endNode.column, endNode.row);
 			neighbor.f = neighbor.distance + neighbor.h;
 		}
