@@ -34,6 +34,7 @@
 			/></RoundButton
 		>
 		<Glider />
+		<RoundButton>?</RoundButton>
 	</div>
 </header>
 <Status />
@@ -47,9 +48,10 @@
 	header {
 		display: flex;
 		justify-content: space-around;
-		align-items: center;
+		/* align-items: center; */
 		height: 50px;
-		background-color: var(--bg-color);
+		background-color: var(--header-bg-color);
 		color: var(--button-fg-color);
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	}
 </style>

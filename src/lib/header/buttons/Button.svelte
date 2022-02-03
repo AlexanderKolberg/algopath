@@ -7,5 +7,7 @@
 		height: var(--button-height);
 		border: none;
 		cursor: pointer;
+		border-radius: var(--button-border-radius);
+		border: var(--button-border);
 	}
 </style>

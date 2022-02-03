@@ -17,9 +17,9 @@
 <style>
 	div {
 		display: flex;
-		align-content: center;
+		align-items: center;
 		justify-content: center;
-		height: 25px;
+		height: 30px;
 	}
 	.red {
 		color: red;

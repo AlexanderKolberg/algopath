@@ -62,13 +62,16 @@
 <style>
 	.split-button {
 		background-color: var(--button-bg-color);
+		border-radius: var(--button-border-radius);
 		cursor: pointer;
 		position: relative;
 		display: flex;
 		justify-content: space-between;
 		height: var(--button-height);
+		border: var(--button-border);
 	}
 	button {
+		border-radius: var(--button-border-radius);
 		background-color: var(--button-bg-color);
 		color: var(--button-fg-color);
 		width: 100%;
@@ -82,7 +85,7 @@
 		justify-content: end;
 		padding-left: 8px;
 		padding-right: 8px;
-		border-left: 1px solid rgba(100, 100, 100, 0.5);
+		border-left: var(--button-border);
 	}
 	.dropdown-content {
 		transform: translateY(var(--button-height));
