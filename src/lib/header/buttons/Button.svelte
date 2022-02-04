@@ -10,4 +10,7 @@
 		border-radius: var(--button-border-radius);
 		border: var(--button-border);
 	}
+	:hover {
+		background-color: var(--button-hovered);
+	}
 </style>
