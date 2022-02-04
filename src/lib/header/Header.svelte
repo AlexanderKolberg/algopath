@@ -1,55 +1,31 @@
 <script>
-	import { activeObstacleStore, reset } from '$lib/board/stores.js';
+	import { reset } from '$lib/board/stores.js';
 	import Button from './buttons/Button.svelte';
 	import Status from './Status.svelte';
 	import SolveButton from './buttons/SolveButton.svelte';
 	import MazeButton from './buttons/MazeButton.svelte';
-	import RoundButton from './buttons/RoundButton.svelte';
-	import Mountain from '$lib/icons/Mountain.svelte';
-	import Wall from '$lib/icons/Wall.svelte';
-	import Logs from '$lib/icons/Logs.svelte';
 	import Glider from './buttons/Glider.svelte';
+	import RoundButton from './buttons/RoundButton.svelte';
+	import Map from '$lib/icons/map.svelte';
+	import ObsticalSelector from './buttons/ObsticalSelector.svelte';
 </script>
 
 <header>
-	<div>
-		<SolveButton />
-		<MazeButton />
-		<Button on:click={reset}>Clear</Button>
-	</div>
-	<div>
-		<RoundButton on:click={() => ($activeObstacleStore = 'wall')}
-			><Wall
-				fill="var({$activeObstacleStore == 'wall' ? '--button-selected' : '--button-fg-color'})"
-			/></RoundButton
-		>
-		<RoundButton on:click={() => ($activeObstacleStore = 'logs')}
-			><Logs
-				fill="var({$activeObstacleStore == 'logs' ? '--button-selected' : '--button-fg-color'})"
-			/></RoundButton
-		>
-		<RoundButton on:click={() => ($activeObstacleStore = 'mountain')}
-			><Mountain
-				fill="var({$activeObstacleStore == 'mountain' ? '--button-selected' : '--button-fg-color'})"
-			/></RoundButton
-		>
-
-		<Glider />
-		<RoundButton>?</RoundButton>
-	</div>
+	<SolveButton />
+	<MazeButton />
+	<ObsticalSelector />
+	<Button on:click={reset}>Clear</Button>
+	<Glider />
+	<RoundButton>?</RoundButton>
 </header>
 <Status />
 
 <style>
-	div {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
 	header {
 		display: flex;
-		justify-content: space-around;
-		/* align-items: center; */
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
 		height: 50px;
 		background-color: var(--header-bg-color);
 		color: var(--button-fg-color);

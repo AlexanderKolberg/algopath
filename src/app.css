@@ -24,10 +24,12 @@ main {
 	--header-bg-color: white;
 	--button-bg-color: #1976d2;
 	--button-border: 0;
-	--button-border-radius: 10px;
+	--button-separator: hsl(210, 70%, 46%);
+	--button-border-radius: 5px;
 	--button-fg-color: white;
 	--button-height: 40px;
-	--button-selected: green;
+	--button-selected: blue;
+	--button-hovered: blue;
 }
 @keyframes move {
 	0% {

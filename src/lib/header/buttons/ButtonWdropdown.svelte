@@ -68,10 +68,9 @@
 		display: flex;
 		justify-content: space-between;
 		height: var(--button-height);
-		border: var(--button-border);
 	}
 	button {
-		border-radius: var(--button-border-radius);
+		border-radius: var(--button-border-radius) 0 0 var(--button-border-radius);
 		background-color: var(--button-bg-color);
 		color: var(--button-fg-color);
 		width: 100%;
@@ -85,7 +84,12 @@
 		justify-content: end;
 		padding-left: 8px;
 		padding-right: 8px;
-		border-left: var(--button-border);
+		border-left: var(--button-separator) solid 2px;
+		border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
+	}
+	button:hover,
+	.dropdown-button:hover {
+		background-color: var(--button-hovered);
 	}
 	.dropdown-content {
 		transform: translateY(var(--button-height));
