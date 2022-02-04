@@ -16,7 +16,7 @@
 	<ObsticalSelector />
 	<Button on:click={reset}>Clear</Button>
 	<Glider />
-	<RoundButton>?</RoundButton>
+	<!-- <RoundButton>?</RoundButton> -->
 </header>
 <Status />
 
