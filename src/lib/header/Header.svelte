@@ -6,7 +6,6 @@
 	import MazeButton from './buttons/MazeButton.svelte';
 	import Glider from './buttons/Glider.svelte';
 	import RoundButton from './buttons/RoundButton.svelte';
-	import Map from '$lib/icons/map.svelte';
 	import ObsticalSelector from './buttons/ObsticalSelector.svelte';
 </script>
 
