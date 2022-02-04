@@ -18,7 +18,7 @@ export default class Node {
 			endStore.set({ row: this.row, column: this.column });
 		}
 		if (type == 'logs') this.obstacle = 2;
-		if (type == 'cat') this.obstacle = 3;
+		if (type == 'mountain') this.obstacle = 3;
 	}
 	ini() {
 		this.classes = '';

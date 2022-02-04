@@ -1,7 +1,7 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <script>
 	import Start from '$lib/icons/Start.svelte';
-	import Cat from '$lib/icons/Cat.svelte';
+	import Mountain from '$lib/icons/Mountain.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
 	import Target from '$lib/icons/Target.svelte';
 
@@ -11,8 +11,8 @@
 <div class={`${node.type} ${node.classes}`} on:mouseover on:mousedown on:mouseleave on:mouseenter>
 	{#if node.type == 'start'}
 		<Start id="start" />
-	{:else if node.type == 'cat'}
-		<Cat width="20px" height="20px" fill="black" />
+	{:else if node.type == 'mountain'}
+		<Mountain width="20px" height="20px" fill="black" />
 	{:else if node.type == 'logs'}
 		<Logs width="20px" height="20px" fill="black" />
 	{:else if node.type == 'target'}

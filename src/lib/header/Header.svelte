@@ -5,7 +5,7 @@
 	import SolveButton from './buttons/SolveButton.svelte';
 	import MazeButton from './buttons/MazeButton.svelte';
 	import RoundButton from './buttons/RoundButton.svelte';
-	import Cat from '$lib/icons/Cat.svelte';
+	import Mountain from '$lib/icons/Mountain.svelte';
 	import Wall from '$lib/icons/Wall.svelte';
 	import Logs from '$lib/icons/Logs.svelte';
 	import Glider from './buttons/Glider.svelte';
@@ -23,16 +23,17 @@
 				fill="var({$activeObstacleStore == 'wall' ? '--button-selected' : '--button-fg-color'})"
 			/></RoundButton
 		>
-		<RoundButton on:click={() => ($activeObstacleStore = 'cat')}
-			><Cat
-				fill="var({$activeObstacleStore == 'cat' ? '--button-selected' : '--button-fg-color'})"
-			/></RoundButton
-		>
 		<RoundButton on:click={() => ($activeObstacleStore = 'logs')}
 			><Logs
 				fill="var({$activeObstacleStore == 'logs' ? '--button-selected' : '--button-fg-color'})"
 			/></RoundButton
 		>
+		<RoundButton on:click={() => ($activeObstacleStore = 'mountain')}
+			><Mountain
+				fill="var({$activeObstacleStore == 'mountain' ? '--button-selected' : '--button-fg-color'})"
+			/></RoundButton
+		>
+
 		<Glider />
 		<RoundButton>?</RoundButton>
 	</div>

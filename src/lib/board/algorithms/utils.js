@@ -23,7 +23,7 @@ export function setClearGrid(grid) {
 export function setClearPath(grid) {
 	grid = grid.map((row) =>
 		row.map((node) => {
-			if (!['start', 'target', 'wall', 'cat', 'logs'].includes(node.type)) {
+			if (!['start', 'target', 'wall', 'mountain', 'logs'].includes(node.type)) {
 				node.type = 'empty';
 			}
 			node.ini();

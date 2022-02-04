@@ -22,10 +22,10 @@ main {
 	--background-color: rgb(241 245 253);
 
 	--header-bg-color: white;
-	--button-bg-color: white;
+	--button-bg-color: #1976d2;
 	--button-border: 0;
-	--button-border-radius: 2px;
-	--button-fg-color: #3d405b;
+	--button-border-radius: 10px;
+	--button-fg-color: white;
 	--button-height: 40px;
 	--button-selected: green;
 }
