@@ -8,7 +8,6 @@ const distance = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 export default function astar() {
 	let grid = get(gridStore);
 	grid = setClearPath(grid);
-	gridStore.set(grid);
 	let startValue = get(startStore);
 	let endValue = get(endStore);
 
@@ -49,6 +48,7 @@ export default function astar() {
 					neighbor.previousNode = current;
 				}
 			} else {
+				neighbor.previousNode = current;
 				neighbor.distance = tempG;
 				openSet.push(neighbor);
 			}
