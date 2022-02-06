@@ -1,9 +1,10 @@
 <script>
 	export let type;
 	export let active;
+	export let ariaLabel;
 </script>
 
-<button on:click class={`${type} ${active}`}><slot /></button>
+<button aria-label={ariaLabel} on:click class={`${type} ${active}`}><slot /></button>
 
 <style>
 	button {

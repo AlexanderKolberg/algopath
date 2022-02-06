@@ -9,17 +9,21 @@
 <div>
 	<GroupButton
 		type="left"
+		ariaLabel="Select wall"
 		on:click={() => ($activeObstacleStore = 'wall')}
 		active={$activeObstacleStore == 'wall' ? 'buttonSelected' : ''}
 		><Wall fill="var(--button-fg-color)" /></GroupButton
 	>
 	<GroupButton
+		type="middle"
+		ariaLabel="Select logs"
 		on:click={() => ($activeObstacleStore = 'logs')}
 		active={$activeObstacleStore == 'logs' ? 'buttonSelected' : ''}
 		><Logs fill="var(--button-fg-color)" /></GroupButton
 	>
 	<GroupButton
 		type="right"
+		ariaLabel="Select mountain"
 		on:click={() => ($activeObstacleStore = 'mountain')}
 		active={$activeObstacleStore == 'mountain' ? 'buttonSelected' : ''}
 		><Mountain fill="var(--button-fg-color)" /></GroupButton
