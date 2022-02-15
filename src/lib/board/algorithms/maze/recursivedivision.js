@@ -10,8 +10,14 @@ export default function recursiveDivision() {
 	let columns = grid.length;
 	let rows = grid[0].length;
 
-	if (!(columns % 2)) columns--;
-	if (!(rows % 2)) rows--;
+	if (!(rows % 2)) {
+		for (let c = 0; c < columns; c++) visitedInOrder.push(grid[c][rows - 1]);
+		rows--;
+	}
+	if (!(columns % 2)) {
+		for (let r = rows - 1; r >= 0; r--) visitedInOrder.push(grid[columns - 1][r]);
+		columns--;
+	}
 	(function addOuterWalls() {
 		for (let r = 0; r < rows; r++) visitedInOrder.push(grid[0][r]);
 		for (let c = 0; c < columns; c++) visitedInOrder.push(grid[c][rows - 1]);
