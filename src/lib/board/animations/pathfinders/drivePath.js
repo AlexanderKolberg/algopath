@@ -7,7 +7,7 @@ export default function drivePath(nodes) {
 	//current implementation do not allow to change speed during animation
 	let time = nodes.length * 15 * get(animationSpeedStore);
 	let oldStyle = start.style.cssText;
-	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms linear;`;
+	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms forwards linear;`;
 	start.onanimationend = () => {
 		start.style.cssText = oldStyle;
 	};

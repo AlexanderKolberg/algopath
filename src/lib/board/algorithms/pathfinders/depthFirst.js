@@ -1,5 +1,4 @@
 import depthFirst from '$lib/board/animations/pathfinders/depthFirst';
-import drivePath from '$lib/board/animations/pathfinders/drivePath';
 import { gridStore, startStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
 import { getNeighbors, setClearPath } from '../utils';
@@ -25,7 +24,6 @@ export default function depthFirstPath() {
 		if (neighbors.length) {
 			visited.push(current);
 			let neighbor = getNeighbor(current, neighbors);
-			console.log(neighbor);
 			visitedInOrder.push(neighbor);
 			current = neighbor;
 		} else {
@@ -36,7 +34,23 @@ export default function depthFirstPath() {
 			break;
 		}
 	} while (visited.length);
-	depthFirst(visitedInOrder);
+	depthFirst(visitedInOrder, visited);
+}
+
+function getNeighbor(current, neighbors) {
+	let row = current.row;
+	let column = current.column;
+	if (direction == 'top') row--;
+	if (direction == 'right') column++;
+	if (direction == 'bottom') row++;
+	if (direction == 'left') column--;
+
+	let neighbor = neighbors.find((e) => e.row == row && e.column == column);
+	console.log(neighbors);
+	console.log(neighbor);
+	if (neighbor != undefined) return neighbor;
+	direction = ['top', 'right', 'bottom', 'left'][Math.floor(Math.random() * 4)];
+	return getNeighbor(current, neighbors);
 }
 
 function getNeighbor(current, neighbors) {

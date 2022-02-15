@@ -2,7 +2,8 @@ import { setClearPath } from '$lib/board/algorithms/utils';
 import { animationSpeedStore, gridStore, statusStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
 import drivePath from './drivePath';
-export default async function depthFirst(nodes) {
+export default async function depthFirst(allNodes, pathNodes) {
+	//PathNodes for future backtracking
 	let grid = get(gridStore);
 	gridStore.set(setClearPath(grid));
 	statusStore.set('inProgress');
@@ -11,9 +12,8 @@ export default async function depthFirst(nodes) {
 	let lastTime = Date.now();
 	let offsetTime = 0; //For keeping track of delay's in the event loop
 
-	drivePath(nodes);
-	console.log(waitTime);
-	for (let node of nodes) {
+	drivePath(allNodes);
+	for (let node of allNodes) {
 		await new Promise((resolve) => setTimeout(resolve, waitTime - offsetTime));
 		if (node.classes != '') {
 			node.classes = 'checked2';
