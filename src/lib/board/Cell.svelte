@@ -41,6 +41,9 @@
 		background: rgb(57, 99, 57);
 		/* animation: color-me-in 0.5s; */
 	}
+	.checked2 {
+		background: rgb(45, 79, 45);
+	}
 	.shortestPath {
 		background-color: rgb(162, 231, 162);
 		transition: background-color 2s;

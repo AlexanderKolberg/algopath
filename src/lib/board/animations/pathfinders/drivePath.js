@@ -1,10 +1,11 @@
-import { animationSpeedStore } from '../stores';
+import { animationSpeedStore } from '$lib/board/stores';
+import { get } from 'svelte/store';
 
 export default function drivePath(nodes) {
 	const start = document.getElementById('start');
 	let road = path(nodes);
 	//current implementation do not allow to change speed during animation
-	let time = nodes.length * 100 * animationSpeedStore;
+	let time = nodes.length * 15 * get(animationSpeedStore);
 	let oldStyle = start.style.cssText;
 	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms linear;`;
 	start.onanimationend = () => {
