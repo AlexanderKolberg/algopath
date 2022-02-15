@@ -1,8 +1,9 @@
 export default function driveShortestPath(nodes) {
 	const start = document.getElementById('start');
 	let road = path(nodes);
+	let time = nodes.length * 100;
 	let oldStyle = start.style.cssText;
-	start.style.cssText += `offset-path: path('${road}'); animation: move 3000ms ease-in-out;`;
+	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms ease-in-out;`;
 	start.onanimationend = () => {
 		start.style.cssText = oldStyle;
 	};
