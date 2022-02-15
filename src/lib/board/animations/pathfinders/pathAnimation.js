@@ -2,7 +2,7 @@ import { setClearPath } from '$lib/board/algorithms/utils';
 import { gridStore, statusStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
 import { wait } from '../utils';
-import driveShortestPath from './driveShortestPath';
+import drivePath from './drivePath';
 
 export default async function pathAnimation(checkedNodes, shortestPath, unsolvable) {
 	let grid = get(gridStore);
@@ -22,6 +22,6 @@ export default async function pathAnimation(checkedNodes, shortestPath, unsolvab
 		node.classes = 'shortestPath';
 		gridStore.forceUpdate();
 	}
-	driveShortestPath(shortestPath);
+	drivePath(shortestPath);
 	statusStore.set('solved');
 }

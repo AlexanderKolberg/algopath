@@ -1,4 +1,4 @@
-export default function driveShortestPath(nodes) {
+export default function drivePath(nodes) {
 	const start = document.getElementById('start');
 	let road = path(nodes);
 	let time = nodes.length * 100;
