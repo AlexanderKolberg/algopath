@@ -17,7 +17,7 @@ export default function depthFirstPath() {
 	do {
 		if (current.type == 'wall') continue;
 		current.visited = true;
-		let neighbors = getNeighbors(current);
+		let neighbors = getNeighbors(grid, current);
 		if (neighbors.length) {
 			visited.push(current);
 			let rng = Math.floor(Math.random() * neighbors.length);
@@ -32,4 +32,5 @@ export default function depthFirstPath() {
 			break;
 		}
 	} while (visited.length);
+	console.log(visitedInOrder);
 }
