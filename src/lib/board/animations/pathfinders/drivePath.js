@@ -1,9 +1,12 @@
+import { animationSpeedStore } from '../stores';
+
 export default function drivePath(nodes) {
 	const start = document.getElementById('start');
 	let road = path(nodes);
-	let time = nodes.length * 100;
+	//current implementation do not allow to change speed during animation
+	let time = nodes.length * 100 * animationSpeedStore;
 	let oldStyle = start.style.cssText;
-	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms ease-in-out;`;
+	start.style.cssText += `offset-path: path('${road}'); animation: move ${time}ms linear;`;
 	start.onanimationend = () => {
 		start.style.cssText = oldStyle;
 	};
