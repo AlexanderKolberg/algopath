@@ -2,6 +2,7 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { scale } from 'svelte/transition';
 	import Arrow from '$lib/icons/Arrow.svelte';
+	import { statusStore } from '$lib/board/stores';
 
 	export let dropdownList;
 	let style = $$props.style;
@@ -28,13 +29,26 @@
 			text: algoritm
 		});
 	}
+	let status;
+	function setStatus() {
+		status = $statusStore;
+		$statusStore = 'Change algorithm';
+	}
+	function resetStatus() {
+		$statusStore = status;
+	}
 </script>
 
 <div class="split-button" {style} bind:this={dropdown}>
-	<button on:click>
+	<button on:click on:mouseenter on:mouseleave>
 		<slot />
 	</button>
-	<span class="dropdown-button" on:click={() => (show = !show)}>
+	<span
+		class="dropdown-button"
+		on:click={() => (show = !show)}
+		on:mouseenter={setStatus}
+		on:mouseleave={resetStatus}
+	>
 		<Arrow fill="var(--button-fg-color)" />
 	</span>
 	{#if show}

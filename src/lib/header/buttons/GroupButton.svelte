@@ -4,7 +4,9 @@
 	export let ariaLabel;
 </script>
 
-<button aria-label={ariaLabel} on:click class={`${type} ${active}`}><slot /></button>
+<button aria-label={ariaLabel} on:mouseenter on:mouseleave on:click class={`${type} ${active}`}
+	><slot /></button
+>
 
 <style>
 	button {

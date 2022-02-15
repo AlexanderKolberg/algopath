@@ -1,5 +1,5 @@
 <script>
-	import { reset } from '$lib/board/stores.js';
+	import { reset, statusStore } from '$lib/board/stores.js';
 	import Button from './buttons/Button.svelte';
 	import Status from './Status.svelte';
 	import SolveButton from './buttons/SolveButton.svelte';
@@ -7,13 +7,23 @@
 	import Glider from './buttons/Glider.svelte';
 	import RoundButton from './buttons/RoundButton.svelte';
 	import ObsticalSelector from './buttons/ObsticalSelector.svelte';
+	let status;
+	function setStatus(action) {
+		status = $statusStore;
+		$statusStore = `${action}`;
+	}
+	function resetStatus() {
+		$statusStore = status;
+	}
 </script>
 
 <header>
 	<SolveButton />
 	<MazeButton />
 	<ObsticalSelector />
-	<Button on:click={reset}>Clear</Button>
+	<Button on:click={reset} on:mouseenter={() => setStatus('Clear grid')} on:mouseleave={resetStatus}
+		>Clear</Button
+	>
 	<Glider />
 	<!-- <RoundButton>?</RoundButton> -->
 </header>

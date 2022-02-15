@@ -11,6 +11,8 @@
 		<span class="red">No path</span>
 	{:else if $statusStore == 'inProgress'}
 		Animation in progress
+	{:else}
+		{$statusStore}
 	{/if}
 </div>
 

@@ -1,4 +1,4 @@
-<button on:click><slot /></button>
+<button on:click on:mouseenter on:mouseleave><slot /></button>
 
 <style>
 	button {

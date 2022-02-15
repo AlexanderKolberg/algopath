@@ -1,12 +1,20 @@
 <script>
-	import { animationSpeedStore } from '$lib/board/stores';
+	import { animationSpeedStore, statusStore } from '$lib/board/stores';
 	let minValue = 0;
 	let maxValue = 100;
 	let value = 50;
 	const onChange = () => ($animationSpeedStore = maxValue - value);
+	let status;
+	function setStatus() {
+		status = $statusStore;
+		$statusStore = 'Change animation speed';
+	}
+	function resetStatus() {
+		$statusStore = status;
+	}
 </script>
 
-<label>
+<label on:mouseenter={setStatus} on:mouseleave={resetStatus}>
 	Animation Speed
 	<input type="range" bind:value min={minValue} max={maxValue} on:change={onChange} />
 </label>
