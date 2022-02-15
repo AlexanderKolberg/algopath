@@ -1,3 +1,4 @@
+import drivePath from '$lib/board/animations/pathfinders/drivePath';
 import { gridStore, startStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
 import { getNeighbors, setClearPath } from '../utils';
@@ -32,5 +33,5 @@ export default function depthFirstPath() {
 			break;
 		}
 	} while (visited.length);
-	console.log(visitedInOrder);
+	drivePath(visitedInOrder);
 }
