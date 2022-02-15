@@ -4,6 +4,8 @@ import { gridStore, startStore } from '$lib/board/stores';
 import { get } from 'svelte/store';
 import { getNeighbors, setClearPath } from '../utils';
 
+let direction = ['top', 'right', 'bottom', 'left'][Math.floor(Math.random() * 4)];
+
 export default function depthFirstPath() {
 	let grid = get(gridStore);
 	grid = setClearPath(grid);
@@ -22,8 +24,8 @@ export default function depthFirstPath() {
 		let neighbors = getNeighbors(grid, current);
 		if (neighbors.length) {
 			visited.push(current);
-			let rng = Math.floor(Math.random() * neighbors.length);
-			let neighbor = neighbors[rng];
+			let neighbor = getNeighbor(current, neighbors);
+			console.log(neighbor);
 			visitedInOrder.push(neighbor);
 			current = neighbor;
 		} else {
@@ -35,4 +37,20 @@ export default function depthFirstPath() {
 		}
 	} while (visited.length);
 	depthFirst(visitedInOrder);
+}
+
+function getNeighbor(current, neighbors) {
+	let row = current.row;
+	let column = current.column;
+	if (direction == 'top') row--;
+	if (direction == 'right') column++;
+	if (direction == 'bottom') row++;
+	if (direction == 'left') column--;
+
+	let neighbor = neighbors.find((e) => e.row == row && e.column == column);
+	console.log(neighbors);
+	console.log(neighbor);
+	if (neighbor != undefined) return neighbor;
+	direction = ['top', 'right', 'bottom', 'left'][Math.floor(Math.random() * 4)];
+	return getNeighbor(current, neighbors);
 }
