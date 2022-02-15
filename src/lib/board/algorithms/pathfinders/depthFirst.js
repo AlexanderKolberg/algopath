@@ -46,24 +46,6 @@ function getNeighbor(current, neighbors) {
 	if (direction == 'left') column--;
 
 	let neighbor = neighbors.find((e) => e.row == row && e.column == column);
-	console.log(neighbors);
-	console.log(neighbor);
-	if (neighbor != undefined) return neighbor;
-	direction = ['top', 'right', 'bottom', 'left'][Math.floor(Math.random() * 4)];
-	return getNeighbor(current, neighbors);
-}
-
-function getNeighbor(current, neighbors) {
-	let row = current.row;
-	let column = current.column;
-	if (direction == 'top') row--;
-	if (direction == 'right') column++;
-	if (direction == 'bottom') row++;
-	if (direction == 'left') column--;
-
-	let neighbor = neighbors.find((e) => e.row == row && e.column == column);
-	console.log(neighbors);
-	console.log(neighbor);
 	if (neighbor != undefined) return neighbor;
 	direction = ['top', 'right', 'bottom', 'left'][Math.floor(Math.random() * 4)];
 	return getNeighbor(current, neighbors);
