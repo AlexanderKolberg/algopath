@@ -29,6 +29,15 @@
 		aspect-ratio: 1;
 	}
 
+	.start,
+	.target {
+		cursor: grab;
+	}
+	.start:active,
+	.target:active {
+		cursor: grabbing;
+	}
+
 	.wall {
 		background-color: grey;
 		/* transition: background-color 1s; */
