@@ -1,5 +1,5 @@
 <br />
-<h2 align="center">Node Weather CLI</h2>
+<h2 align="center">AlgoPath</h2>
 <br />
   <p align="center">
     A path finding visualizer created with svelte.
