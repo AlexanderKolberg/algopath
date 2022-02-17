@@ -5,8 +5,8 @@
 	import SolveButton from './buttons/SolveButton.svelte';
 	import MazeButton from './buttons/MazeButton.svelte';
 	import Glider from './buttons/Glider.svelte';
-	import RoundButton from './buttons/RoundButton.svelte';
 	import ObsticalSelector from './buttons/ObsticalSelector.svelte';
+	import HelpButton from './buttons/HelpButton.svelte';
 	let status;
 	function setStatus(action) {
 		status = $statusStore;
@@ -25,7 +25,7 @@
 		>Clear</Button
 	>
 	<Glider />
-	<!-- <RoundButton>?</RoundButton> -->
+	<HelpButton />
 </header>
 <Status />
 
